@@ -1,0 +1,14 @@
+{
+  "name": "bdgt",
+  "version": "0.0.1",
+  "description": "Keep track of a family's monthly budget",
+  "main": "entry.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "budget"
+  ],
+  "author": "Bernardo Pacheco",
+  "license": "ISC"
+}
