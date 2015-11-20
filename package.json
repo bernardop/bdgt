@@ -2,7 +2,7 @@
   "name": "bdgt",
   "version": "0.0.1",
   "description": "Keep track of a family's monthly budget",
-  "main": "index.js",
+  "main": "index.jsx",
   "keywords": [
     "budget"
   ],
@@ -13,12 +13,20 @@
     "url": "https://github.com/bernardop/bdgt"
   },
   "devDependencies": {
+    "babel-core": "^5.8.34",
+    "babel-loader": "^5.4.0",
+    "babel-plugin-react-transform": "^1.1.1",
     "css-loader": "^0.23.0",
     "html-webpack-plugin": "^1.6.2",
+    "react-transform-hmr": "^1.0.1",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.6",
     "webpack-dev-server": "^1.12.1",
     "webpack-merge": "^0.3.0"
+  },
+  "dependencies": {
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3"
   },
   "scripts": {
     "start": "webpack-dev-server"
