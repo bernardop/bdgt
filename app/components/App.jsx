@@ -32,7 +32,7 @@ export default class App extends Component {
 
         return (
             <div>
-                <button className="add-note" onClick={this.addBudgetItem}>+</button>
+                <button className="add-budget-item" onClick={this.addBudgetItem}>+</button>
                 <BudgetItems items={budgetItems} onEdit={this.editBudgetItem}
                     onDelete={this.deleteBudgetItem} />
             </div>

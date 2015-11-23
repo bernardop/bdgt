@@ -35,7 +35,7 @@ export default class BudgetItem extends Component {
 
         return (
             <div onClick={this.edit}>
-                <span className="budget-item">{this.props.itemName} - ${this.props.amount}</span>
+                <span className="name-amount">{this.props.itemName} - ${this.props.amount}</span>
                 {onDelete ? this.renderDelete() : null}
             </div>
         )
