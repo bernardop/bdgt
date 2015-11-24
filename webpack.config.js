@@ -17,19 +17,32 @@ var common = {
     module: {
         loaders: [
             {
-                test: /\.css$/,
-                loaders: ['style', 'css'],
+                test: /\.scss$/,
+                loaders: ['style', 'css', 'sass'],
                 include: APP_PATH
             },
             {
                 test: /\.jsx?$/,
                 loaders: ['babel'],
                 include: APP_PATH
-            }
+            },
+
+            { test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery' },
+
+            { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,   loader: "url?limit=10000&mimetype=application/font-woff" },
+            { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,  loader: "url?limit=10000&mimetype=application/font-woff" },
+            { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    loader: "url?limit=10000&mimetype=application/octet-stream" },
+            { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,    loader: "file" },
+            { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,    loader: "url?limit=10000&mimetype=image/svg+xml" }
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({ title: 'Bdgt' })
+        new HtmlWebpackPlugin({ title: 'Bdgt' }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery'
+        })
     ]
 }
 

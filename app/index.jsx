@@ -1,4 +1,5 @@
-import './main.css';
+import 'bootstrap-sass!../bootstrap-sass.config.js'
+import './main.scss';
 
 import 'array.prototype.findindex';
 
