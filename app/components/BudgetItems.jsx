@@ -6,7 +6,9 @@ export default class BudgetItems extends Component {
         const items = this.props.items;
 
         return (
-            <ul className="budget-items">{items.map(this.renderBudgetItem)}</ul>
+            <div className="row">
+                <ul className="col-md-3 budget-items">{items.map(this.renderBudgetItem)}</ul>
+            </div>
         );
     }
 

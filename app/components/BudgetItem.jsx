@@ -43,7 +43,7 @@ export default class BudgetItem extends Component {
 
     renderDelete = () => {
         return (
-            <button className="delete" onClick={this.props.onDelete}>x</button>
+            <button className="btn btn-sm btn-default pull-right glyphicon glyphicon-minus delete" onClick={this.props.onDelete}></button>
         );
     }
 

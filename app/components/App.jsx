@@ -32,7 +32,7 @@ export default class App extends Component {
 
         return (
             <div className="col-md-12">
-                <button className="btn btn-primary glyphicon glyphicon-plus" onClick={this.addBudgetItem}></button>
+                <button className="btn btn-sm btn-primary glyphicon glyphicon-plus" onClick={this.addBudgetItem}></button>
                 <BudgetItems items={budgetItems} onEdit={this.editBudgetItem}
                     onDelete={this.deleteBudgetItem} />
             </div>
