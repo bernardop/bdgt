@@ -1,8 +1,16 @@
 $btn-background-color: #fdfdfd;
+$white: #fff;
 
 body {
-    background: cornsilk;
+    background: $white;
     font-family: sans-serif;
+}
+
+.top-bar {
+    background-color: #66afe9;
+    color: $white;
+    padding-left: 20px;
+    padding-bottom: 5px;
 }
 
 .budget-items {

@@ -37,7 +37,11 @@ var common = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({ title: 'Bdgt' }),
+        new HtmlWebpackPlugin({
+            title: 'Bdgt',
+            template: 'tpl/index.tpl.html',
+            inject: 'body'
+        }),
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
