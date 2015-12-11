@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import Sidebar from './Sidebar/Sidebar.jsx';
 import PageContent from './PageContent/PageContent.jsx';
 
+import classNames from 'classnames';
+
 import './App.scss';
 
 export default class App extends Component {
@@ -9,15 +11,15 @@ export default class App extends Component {
         super(props);
 
         this.state = {
-            sidebarToggle: false
+            sidebarToggled: false
         };
     }
 
     render() {
-        let sidebarToggleClass = this.state.sidebarToggle ? 'toggled' : '';
+        const wrapperClass = classNames({'toggled': this.state.sidebarToggled});
 
         return (
-            <div id="wrapper" className={sidebarToggleClass}>
+            <div id="wrapper" className={wrapperClass}>
                 <Sidebar />
                 <PageContent onClickSidebarToggle={this.toggleSidebar} />
             </div>
@@ -25,10 +27,10 @@ export default class App extends Component {
     }
 
     toggleSidebar = () => {
-        const currentSidebarToggle = this.state.sidebarToggle;
+        const currentSidebarToggle = this.state.sidebarToggled;
 
         this.setState({
-            sidebarToggle: !currentSidebarToggle
+            sidebarToggled: !currentSidebarToggle
         });
     }
 }

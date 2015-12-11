@@ -2,4 +2,4 @@
 
 Simple app for managing a personal/family budget and expenses.
 
-Build with React
+Built with React

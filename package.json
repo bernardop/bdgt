@@ -3,7 +3,13 @@
   "version": "0.0.1",
   "description": "Simple app for managing a personal/family budget and expenses",
   "main": "index.jsx",
-  "keywords": ["react", "redux", "babel", "webpack", "budget"],
+  "keywords": [
+    "react",
+    "redux",
+    "babel",
+    "webpack",
+    "budget"
+  ],
   "author": "Bernardo Pacheco",
   "license": "MIT",
   "repository": {
@@ -33,6 +39,7 @@
   },
   "dependencies": {
     "array.prototype.findindex": "^1.0.0",
+    "classnames": "^2.2.1",
     "jquery": "^2.1.4",
     "node-uuid": "^1.4.7",
     "react": "^0.14.3",
