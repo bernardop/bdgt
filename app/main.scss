@@ -1,5 +1,4 @@
-$btn-background-color: #fdfdfd;
-$white: #fff;
+@import 'styles/variables';
 
 body {
     background: $white;
@@ -11,33 +10,4 @@ body {
     color: $white;
     padding-left: 20px;
     padding-bottom: 5px;
-}
-
-.budget-items {
-    margin: 0.5em;
-    list-style: none;
-}
-
-.budget-item {
-    margin-bottom: 1em;
-    padding: 1em;
-    background-color: $btn-background-color;
-    box-shadow: 0 0 0.3em 0.03em rgba(0, 0, 0, 0.3);
-}
-.budget-item:hover {
-    box-shadow: 0 0 0.3em 0.03em rgba(0, 0, 0, 0.7);
-    transition: 0.6s;
-}
-
-.budget-item .name-amount {
-    /* force to use inline-block so that it gets minimum height */
-    display: inline-block;
-}
-
-.budget-item .delete {
-    visibility: hidden;
-}
-
-.budget-item:hover .delete {
-    visibility: visible;
 }
