@@ -1,11 +1,9 @@
 {
   "name": "bdgt",
   "version": "0.0.1",
-  "description": "Keep track of a family's monthly budget",
+  "description": "Simple app for managing a personal/family budget and expenses",
   "main": "index.jsx",
-  "keywords": [
-    "budget"
-  ],
+  "keywords": ["react", "redux", "babel", "webpack", "budget"],
   "author": "Bernardo Pacheco",
   "license": "MIT",
   "repository": {
