@@ -1,6 +1,4 @@
-import 'bootstrap-sass!../bootstrap-sass.config.js'
-
-import 'array.prototype.findindex';
+import 'bootstrap-sass!../bootstrap-sass.config.js';
 
 import React from 'react';
 import ReactDOM from 'react-dom';

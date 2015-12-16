@@ -1,0 +1,20 @@
+@import '../../styles/variables';
+
+#sidebar-wrapper .panel-default {
+    border-color: $sidebar-background-color;
+}
+
+#sidebar-wrapper .panel-heading {
+    background: $sidebar-background-color;
+    border-color: $sidebar-background-color;
+
+    h4 {
+        font-size: 1.3em;
+    }
+
+    a {
+        color: #7ddc1f;
+        text-decoration: none;
+        font-weight: 500;
+    }
+}

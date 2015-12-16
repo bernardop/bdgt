@@ -1,13 +1,13 @@
 @import 'styles/variables';
 
 body {
-    background: $white;
+    background: white;
     font-family: sans-serif;
 }
 
 .top-bar {
-    background-color: #66afe9;
-    color: $white;
+    background-color: $header-background-color;
+    color: white;
     padding-left: 20px;
     padding-bottom: 5px;
 }
