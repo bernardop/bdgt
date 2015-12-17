@@ -3,12 +3,12 @@
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
-    left: 200px;
+    left: $sidebar-width;
     width: 0;
     height: 100%;
-    margin-left: -200px;
+    margin-left: (-$sidebar-width);
     overflow-y: auto;
-    background: $sidebar-background-color;
+    background: $sidebar-primary-bg-color;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -16,12 +16,12 @@
 }
 
 #wrapper.toggled #sidebar-wrapper {
-    width: 200px;
+    width: $sidebar-width;
 }
 
 @media(min-width:768px) {
     #sidebar-wrapper {
-        width: 200px;
+        width: $sidebar-width;
     }
 
     #wrapper.toggled #sidebar-wrapper {

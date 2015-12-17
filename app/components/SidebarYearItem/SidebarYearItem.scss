@@ -1,12 +1,13 @@
 @import '../../styles/variables';
 
-#sidebar-wrapper .panel-default {
-    border-color: $sidebar-background-color;
+#sidebar-wrapper .panel.panel-default {
+    background: $sidebar-primary-bg-color;
+    border: 1px solid $sidebar-primary-bg-color;
 }
 
 #sidebar-wrapper .panel-heading {
-    background: $sidebar-background-color;
-    border-color: $sidebar-background-color;
+    background: $sidebar-primary-bg-color;
+    border-color: $sidebar-primary-bg-color;
 
     h4 {
         font-size: 1.3em;
@@ -16,5 +17,18 @@
         color: #7ddc1f;
         text-decoration: none;
         font-weight: 500;
+    }
+}
+
+#sidebar-wrapper .panel-body {
+    padding: 0;
+    background: $sidebar-secondary-bg-color;
+    border-color: $sidebar-secondary-bg-color;
+
+    .periods {
+        width: $sidebar-width;
+        list-style: none;
+        padding: 0;
+        margin: 0;
     }
 }

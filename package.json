@@ -41,8 +41,10 @@
     "classnames": "^2.2.1",
     "jquery": "^2.1.4",
     "lodash": "^3.10.1",
+    "moment": "^2.10.6",
     "react": "^0.14.3",
-    "react-dom": "^0.14.3"
+    "react-dom": "^0.14.3",
+    "uuid": "^2.0.1"
   },
   "scripts": {
     "start": "webpack-dev-server"

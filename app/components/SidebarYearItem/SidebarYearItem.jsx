@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
+import SidebarPeriod from '../SidebarPeriod/SidebarPeriod.jsx';
 
 import './SidebarYearItem.scss';
 
 export default class SidebarYearItem extends Component {
 
     render() {
-        const {year, ...props} = this.props;
+        const {year, items, ...props} = this.props;
         const dataTarget = `#year-${year}-collapse`;
         const collapseId = `year-${year}-collapse`;
         return (
@@ -19,10 +20,22 @@ export default class SidebarYearItem extends Component {
                 </div>
                 <div id={collapseId} className="panel-collapse collapse" role="tabpanel">
                     <div className="panel-body">
-                        {year}
+                        <div className="row">
+                            <div className="col-md-12">
+                                <ul className="periods">
+                                    {items.map(this.renderPeriod)}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        );
+    }
+
+    renderPeriod = (period) => {
+        return (
+            <SidebarPeriod period={period} key={period.id} />
         );
     }
 }

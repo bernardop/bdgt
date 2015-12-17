@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import SidebarYearItem from '../SidebarYearItem/SidebarYearItem.jsx';
+import store from '../../store/store';
 import _ from 'lodash';
 
 import './Sidebar.scss';
@@ -9,24 +10,16 @@ export default class Sidebar extends Component {
         super(props);
 
         this.state = {
-            years: [
-                {
-                    id: _.uniqueId('year'),
-                    year: '2015'
-                },
-                {
-                    id: _.uniqueId('year'),
-                    year: '2014'
-                }
-            ]
+            data: store
         };
     }
 
     render() {
+        const years = _(this.state.data).pluck('year').unique().value().sort((a, b) => a - b);
         return (
             <div id="sidebar-wrapper">
                 <div className="panel-group" role="tablist">
-                    {this.state.years.map(this.renderYearItem)}
+                    {years.map(this.renderYearItem)}
                 </div>
             </div>
         );
@@ -34,7 +27,7 @@ export default class Sidebar extends Component {
 
     renderYearItem = (year) => {
         return (
-            <SidebarYearItem id={year.id} year={year.year} key={year.id} />
+            <SidebarYearItem year={year} key={year} items={_.where(this.state.data, { 'year': year })} />
         );
     }
 }
