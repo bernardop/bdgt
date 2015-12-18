@@ -19,6 +19,20 @@
     width: $sidebar-width;
 }
 
+#sidebar-wrapper .sidebar-heading {
+    width: $sidebar-width;
+    font-size: .9em;
+    padding: 20px 10px 0px 10px;
+    color: #dc1f7d;
+    text-transform: uppercase;
+
+    button {
+        position: relative;
+        left: 50px;
+        top: -3px;
+    }
+}
+
 @media(min-width:768px) {
     #sidebar-wrapper {
         width: $sidebar-width;

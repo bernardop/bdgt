@@ -7,7 +7,7 @@
 
 #sidebar-wrapper .panel-heading {
     background: $sidebar-primary-bg-color;
-    border-color: $sidebar-primary-bg-color;
+    border-bottom: 1px solid $sidebar-secondary-bg-color;
 
     h4 {
         font-size: 1.3em;
@@ -23,7 +23,7 @@
 #sidebar-wrapper .panel-body {
     padding: 0;
     background: $sidebar-secondary-bg-color;
-    border-color: $sidebar-secondary-bg-color;
+    border: 0;
 
     .periods {
         width: $sidebar-width;

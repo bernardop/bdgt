@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import SidebarPeriod from '../SidebarPeriod/SidebarPeriod.jsx';
 
-import './SidebarYearItem.scss';
+import './SidebarYear.scss';
 
-export default class SidebarYearItem extends Component {
+export default class SidebarYear extends Component {
 
     render() {
         const {year, items, ...props} = this.props;

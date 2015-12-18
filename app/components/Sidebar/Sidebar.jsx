@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import SidebarYearItem from '../SidebarYearItem/SidebarYearItem.jsx';
+import SidebarYear from '../SidebarYear/SidebarYear.jsx';
 import store from '../../store/store';
 import _ from 'lodash';
 
@@ -15,9 +15,14 @@ export default class Sidebar extends Component {
     }
 
     render() {
-        const years = _(this.state.data).pluck('year').unique().value().sort((a, b) => a - b);
+        const years = _(this.state.data).pluck('year').unique().value().sort((a, b) => b - a);
         return (
             <div id="sidebar-wrapper">
+                <div className="sidebar-heading">
+                    Budget Periods
+                    <button type="button" className="btn btn-default btn-xs glyphicon glyphicon-plus"
+                        onClick={this.addBudgetPeriod}></button>
+                </div>
                 <div className="panel-group" role="tablist">
                     {years.map(this.renderYearItem)}
                 </div>
@@ -27,7 +32,11 @@ export default class Sidebar extends Component {
 
     renderYearItem = (year) => {
         return (
-            <SidebarYearItem year={year} key={year} items={_.where(this.state.data, { 'year': year })} />
+            <SidebarYear year={year} key={year} items={_.where(this.state.data, { 'year': year })} />
         );
+    }
+
+    addBudgetPeriod = () => {
+        console.log("What up");
     }
 }
