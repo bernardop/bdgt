@@ -1,4 +1,10 @@
-@import 'styles/variables';
+@import './styles/variables';
+
+@import './components/Main/Main';
+@import './components/Main/PageContent/PageContent';
+@import './components/Main/Sidebar/Sidebar';
+@import './components/Main/Sidebar/SidebarYear/SidebarYear';
+@import './components/Main/Sidebar/SidebarYear/SidebarPeriod/SidebarPeriod';
 
 body {
     background: white;

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import SidebarYear from '../SidebarYear/SidebarYear.jsx';
-import store from '../../store/store';
+import SidebarYear from './SidebarYear/SidebarYear.jsx';
+import store from '../../../store/store';
 import _ from 'lodash';
 
-import './Sidebar.scss';
+import './_Sidebar.scss';
 
 export default class Sidebar extends Component {
     constructor(props) {

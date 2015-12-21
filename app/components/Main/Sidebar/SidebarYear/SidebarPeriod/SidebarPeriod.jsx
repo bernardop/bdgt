@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import './SidebarPeriod.scss';
+import './_SidebarPeriod.scss';
 
 export default class SidebarPeriod extends Component {
     render() {
