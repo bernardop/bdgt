@@ -4,8 +4,8 @@ var webpack = require('webpack');
 var merge = require('webpack-merge');
 
 var TARGET = process.env.npm_lifecycle_event;
-var ROOT_PATH = path.resolve(__dirname);
-var APP_PATH = path.resolve(ROOT_PATH, 'app');
+var ROOT_PATH = path.join(__dirname);
+var APP_PATH = path.join(ROOT_PATH, 'app');
 
 process.env.BABEL_ENV = TARGET;
 
@@ -16,6 +16,14 @@ var common = {
     },
     module: {
         loaders: [
+            {
+                test: /\.css$/,
+                loaders: ['style', 'css'],
+                include: [
+                    APP_PATH,
+                    path.join(ROOT_PATH, 'node_modules/react-datepicker/dist')
+                ]
+            },
             {
                 test: /\.scss$/,
                 loaders: ['style', 'css', 'sass'],
