@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router';
 import SidebarYear from './SidebarYear/SidebarYear.jsx';
 import store from '../../../store/store';
 import _ from 'lodash';
@@ -20,8 +21,7 @@ export default class Sidebar extends Component {
             <div id="sidebar-wrapper">
                 <div className="sidebar-heading">
                     Budget Periods
-                    <button type="button" className="btn btn-default btn-xs glyphicon glyphicon-plus"
-                        onClick={this.addBudgetPeriod}></button>
+                    <Link to="add-period" role="button" className="btn btn-default btn-xs glyphicon glyphicon-plus" />
                 </div>
                 <div className="panel-group" role="tablist">
                     {years.map(this.renderYearItem)}
@@ -34,9 +34,5 @@ export default class Sidebar extends Component {
         return (
             <SidebarYear year={year} key={year} items={_.where(this.state.data, { 'year': year })} />
         );
-    }
-
-    addBudgetPeriod = () => {
-        console.log("What up");
     }
 }
