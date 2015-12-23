@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import SidebarPeriod from './SidebarPeriod/SidebarPeriod.jsx';
 
-import './_SidebarYear.scss';
+import './SidebarYear.scss';
 
 export default class SidebarYear extends Component {
 

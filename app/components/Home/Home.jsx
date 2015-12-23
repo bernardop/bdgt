@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import Sidebar from './Sidebar/Sidebar.jsx';
 import PageContent from './PageContent/PageContent.jsx';
+import Header from './Header/Header.jsx';
 
 import classNames from 'classnames';
 
-import './_Main.scss';
+import './Home.scss';
 
 export default class App extends Component {
     constructor(props) {
@@ -20,15 +21,7 @@ export default class App extends Component {
 
         return (
             <div>
-                <div className="top-bar">
-                    <div className="header clearfix">
-                        <div className="row">
-                            <div className="col-md-12 col-sm-12 col-lg-12">
-                                <h3>BDGT</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Header />
                 <div id="wrapper" className={wrapperClass}>
                     <Sidebar />
                     <PageContent onClickSidebarToggle={this.toggleSidebar} />

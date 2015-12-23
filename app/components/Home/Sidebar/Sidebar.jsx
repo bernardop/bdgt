@@ -4,7 +4,7 @@ import SidebarYear from './SidebarYear/SidebarYear.jsx';
 import store from '../../../store/store';
 import _ from 'lodash';
 
-import './_Sidebar.scss';
+import './Sidebar.scss';
 
 export default class Sidebar extends Component {
     constructor(props) {
@@ -21,7 +21,7 @@ export default class Sidebar extends Component {
             <div id="sidebar-wrapper">
                 <div className="sidebar-heading">
                     Budget Periods
-                    <Link to="add-period" role="button" className="btn btn-default btn-xs glyphicon glyphicon-plus" />
+                    <Link to="/periods/new" role="button" className="btn btn-default btn-xs glyphicon glyphicon-plus" />
                 </div>
                 <div className="panel-group" role="tablist">
                     {years.map(this.renderYearItem)}

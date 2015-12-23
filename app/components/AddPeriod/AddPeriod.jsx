@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
-import './_AddPeriod.scss';
+import './AddPeriod.scss';
 import 'react-datepicker/dist/react-datepicker.css';
 
 export default class AddPeriod extends Component {
@@ -12,7 +12,7 @@ export default class AddPeriod extends Component {
             <div id="add-period" className="container-fluid">
                 <div className="row">
                     <div className="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-                        <Link to="periods" role="button" className="btn btn-lg btn-default glyphicon glyphicon-remove pull-right" />
+                        <Link to="/periods" role="button" className="btn btn-lg btn-default glyphicon glyphicon-remove pull-right" />
                         <h1>Add a new period</h1>
                         <form action="">
                             <div className="form-group form-group-lg">
