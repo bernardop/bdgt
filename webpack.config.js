@@ -11,6 +11,11 @@ process.env.BABEL_ENV = TARGET;
 
 var common = {
     entry: APP_PATH,
+    output: {
+        publicPath: '/',
+        filename: 'bundle.js',
+        path: path.join(ROOT_PATH, 'build')
+    },
     resolve: {
         extensions: ['', '.js', '.jsx']
     },
@@ -65,7 +70,7 @@ if (TARGET === 'start' || !TARGET) {
             historyApiFallback: true,
             hot: true,
             inline: true,
-            progress: true
+            progress: true,
         },
         plugins: [
             new webpack.HotModuleReplacementPlugin()
