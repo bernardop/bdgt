@@ -7,7 +7,20 @@ import './AddPeriod.scss';
 import 'react-datepicker/dist/react-datepicker.css';
 
 export default class AddPeriod extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            periodName: '',
+            periodStartDate: '',
+            periodEndDate: ''
+        };
+    }
+
     render() {
+        const {periodName, periodStartDate, periodEndDate} = this.state;
+
         return (
             <div id="add-period" className="container-fluid">
                 <div className="row">
@@ -18,19 +31,19 @@ export default class AddPeriod extends Component {
                             <div className="col-md-12">
                                 <div className="form-group form-group-lg">
                                     <label className="control-label">Period name</label>
-                                    <input type="text" className="form-control" placeholder="e.g. Jan-Feb"/>
+                                    <input id="period-name" type="text" className="form-control" placeholder="e.g. Jan-Feb" value={periodName} onChange={this.handleChange} />
                                 </div>
                             </div>
                             <div className="col-md-6">
                                 <div className="form-group form-group-lg">
                                     <label>Period start</label>
-                                    <DatePicker className="form-control" placeholderText="When does the new period start?" dateFormat="MM/DD/YYYY" />
+                                    <DatePicker id="period-start" className="form-control" placeholderText="When does the new period start?" dateFormat="MM/DD/YYYY" value={periodStartDate} onChange={this.handleChange} />
                                 </div>
                             </div>
                             <div className="col-md-6">
                                 <div className="form-group form-group-lg">
                                     <label>Period end</label>
-                                    <DatePicker className="form-control" placeholderText="When does the new period end?" dateFormat="MM/DD/YYYY" />
+                                    <DatePicker id="period-end" className="form-control" placeholderText="When does the new period end?" dateFormat="MM/DD/YYYY" value={periodEndDate} onChange={this.handleChange} />
                                 </div>
                             </div>
                             <div className="col-md-12">
@@ -43,6 +56,23 @@ export default class AddPeriod extends Component {
                 </div>
             </div>
         );
+    }
+
+    handleChange = (e) => {
+        const newValue = e;
+        console.log(newValue);
+        switch (newValue.id) {
+            case "period-name":
+                this.setState({periodName: newValue.value});
+                break;
+            case "period-start":
+                this.setState({periodStartDate: newValue.value});
+                break;
+            case "period-end":
+                this.setState({periodEndDate: newValue.value});
+                break;
+        }
+        console.log(this.state);
     }
 
     handleFormSubmit = () => {

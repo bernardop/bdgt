@@ -19,7 +19,7 @@ export default class Sidebar extends Component {
         const years = _(this.state.data).pluck('year').unique().value().sort((a, b) => b - a);
         return (
             <div id="sidebar-wrapper">
-                <div className="sidebar-heading">
+                <div className="sidebar-heading text-uppercase">
                     Budget Periods
                     <Link to="/periods/new" role="button" className="btn btn-default btn-xs glyphicon glyphicon-plus" />
                 </div>
