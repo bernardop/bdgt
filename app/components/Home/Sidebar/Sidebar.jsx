@@ -11,8 +11,12 @@ export default class Sidebar extends Component {
         super(props);
 
         this.state = {
-            data: store
+            data: {}
         };
+    }
+
+    componentDidMount() {
+        this.setState({data: store});
     }
 
     render() {

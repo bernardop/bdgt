@@ -13,8 +13,8 @@ export default class AddPeriod extends Component {
 
         this.state = {
             periodName: '',
-            periodStartDate: '',
-            periodEndDate: ''
+            periodStartDate: null,
+            periodEndDate: null
         };
     }
 
@@ -31,19 +31,21 @@ export default class AddPeriod extends Component {
                             <div className="col-md-12">
                                 <div className="form-group form-group-lg">
                                     <label className="control-label">Period name</label>
-                                    <input id="period-name" type="text" className="form-control" placeholder="e.g. Jan-Feb" value={periodName} onChange={this.handleChange} />
+                                    <input type="text" className="form-control" placeholder="e.g. Jan-Feb" value={periodName} onChange={this.handleNameChange} />
                                 </div>
                             </div>
                             <div className="col-md-6">
                                 <div className="form-group form-group-lg">
                                     <label>Period start</label>
-                                    <DatePicker id="period-start" className="form-control" placeholderText="When does the new period start?" dateFormat="MM/DD/YYYY" value={periodStartDate} onChange={this.handleChange} />
+                                    <DatePicker className="form-control" placeholderText="When does the new period start?"
+                                                selected={periodStartDate} onChange={this.handleStartDateChange} dateFormat="MM/DD/YYYY" />
                                 </div>
                             </div>
                             <div className="col-md-6">
                                 <div className="form-group form-group-lg">
                                     <label>Period end</label>
-                                    <DatePicker id="period-end" className="form-control" placeholderText="When does the new period end?" dateFormat="MM/DD/YYYY" value={periodEndDate} onChange={this.handleChange} />
+                                    <DatePicker className="form-control" placeholderText="When does the new period end?"
+                                                selected={periodEndDate} onChange={this.handleEndDateChange} dateFormat="MM/DD/YYYY" />
                                 </div>
                             </div>
                             <div className="col-md-12">
@@ -58,20 +60,18 @@ export default class AddPeriod extends Component {
         );
     }
 
-    handleChange = (e) => {
-        const newValue = e;
-        console.log(newValue);
-        switch (newValue.id) {
-            case "period-name":
-                this.setState({periodName: newValue.value});
-                break;
-            case "period-start":
-                this.setState({periodStartDate: newValue.value});
-                break;
-            case "period-end":
-                this.setState({periodEndDate: newValue.value});
-                break;
-        }
+    handleNameChange = (e) => {
+        this.setState({periodName: e.target.value});
+        console.log(this.state);
+    }
+
+    handleStartDateChange = (date) => {
+        this.setState({periodStartDate: date});
+        console.log(date.calendar());
+    }
+
+    handleEndDateChange = (date) => {
+        this.setState({periodEndDate: date});
         console.log(this.state);
     }
 
