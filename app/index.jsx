@@ -5,7 +5,8 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRedirect } from 'react-router';
 import { createHistory } from 'history';
 import App from './components/App.jsx';
-import Home from './components/Home/Home.jsx';
+import Header from './components/Header/Header.jsx';
+import Sidebar from './components/Sidebar/Sidebar.jsx';
 import AddPeriod from './components/AddPeriod/AddPeriod.jsx';
 
 main();
@@ -17,8 +18,8 @@ function main() {
         <Router history={createHistory()}>
             <Route path="/" component={App}>
                 <IndexRedirect to="/periods" />
-                <Route path="/periods" component={Home} />
-                <Route path="/periods/new" component={AddPeriod} />
+                <Route path="/periods" components={{ header: Header, sidebar: Sidebar }} />
+                <Route path="/periods/new" components={{ content: AddPeriod }} />
             </Route>
         </Router>
     ), app);

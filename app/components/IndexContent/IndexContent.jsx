@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import './PageContent.scss';
+import './IndexContent.scss';
 
 export default class PageContent extends Component {
     constructor(props) {

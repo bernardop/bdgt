@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
 import SidebarYear from './SidebarYear/SidebarYear.jsx';
-import store from '../../../store/store';
+import store from '../../store/store';
 import _ from 'lodash';
 
 import './Sidebar.scss';

@@ -1,4 +1,4 @@
-@import '../../../styles/variables';
+@import '../../styles/variables';
 
 #sidebar-wrapper {
     z-index: 1000;
@@ -9,13 +9,9 @@
     margin-left: (-$sidebar-width);
     overflow-y: auto;
     background: $sidebar-primary-bg-color;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
 }
 
-#wrapper.toggled #sidebar-wrapper {
+.wrapper.toggled #sidebar-wrapper {
     width: $sidebar-width;
 }
 
@@ -37,7 +33,7 @@
         width: $sidebar-width;
     }
 
-    #wrapper.toggled #sidebar-wrapper {
+    .wrapper.toggled #sidebar-wrapper {
         width: 0;
     }
 }
