@@ -1,26 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 import SidebarYear from './SidebarYear/SidebarYear.jsx';
-import store from '../../store/store';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 
 import './Sidebar.scss';
 
-export default class Sidebar extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            data: {}
-        };
-    }
-
-    componentDidMount() {
-        this.setState({data: store});
-    }
+class Sidebar extends Component {
 
     render() {
-        const years = _(this.state.data).pluck('year').unique().value().sort((a, b) => b - a);
+        const { dispatch, visiblePeriods } = this.props;
+        const years = _(visiblePeriods).pluck('year').unique().value().sort((a, b) => b - a);
         return (
             <div id="sidebar-wrapper">
                 <div className="sidebar-heading text-uppercase">
@@ -28,15 +18,19 @@ export default class Sidebar extends Component {
                     <Link to="/periods/new" role="button" className="btn btn-default btn-xs glyphicon glyphicon-plus" />
                 </div>
                 <div className="panel-group" role="tablist">
-                    {years.map(this.renderYearItem)}
+                    {years.map(year =>
+                        <SidebarYear year={year} key={year} items={_.where(visiblePeriods, { 'year': year })} />
+                    )}
                 </div>
             </div>
         );
     }
-
-    renderYearItem = (year) => {
-        return (
-            <SidebarYear year={year} key={year} items={_.where(this.state.data, { 'year': year })} />
-        );
-    }
 }
+
+function select(state) {
+    return {
+        visiblePeriods: state.periods
+    };
+}
+
+export default connect(select)(Sidebar);
