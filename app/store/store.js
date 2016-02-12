@@ -1,9 +1,9 @@
-import _ from 'lodash';
-import uuid from 'uuid';
-import moment from 'moment';
-import { createStore, combineReducers } from 'redux';
+import _ from 'lodash'
+import uuid from 'uuid'
+import moment from 'moment'
+import { createStore, combineReducers } from 'redux'
 
-const dateFormat = 'MM-DD-YYYY';
+const dateFormat = 'MM-DD-YYYY'
 
 let store = {
     sidebarToggled: false,
@@ -37,7 +37,7 @@ let store = {
             year: 2016
         }
     ]
-};
+}
 
 const periods = (state = store.periods, action) => {
     switch (action.type) {
@@ -50,18 +50,18 @@ const periods = (state = store.periods, action) => {
                     endDate: action.endDate,
                     year: action.endDate.year()
                 }
-            ];
+            ]
         default:
-            return state;
+            return state
     }
 }
 
 const sidebarToggle = (state = false, action) => {
     switch (action.type) {
         case 'TOGGLE_SIDEBAR':
-            return !state;
+            return !state
         default:
-            return state;
+            return state
     }
 
 }
@@ -71,4 +71,4 @@ const bdgtApp = combineReducers({
     sidebarToggle
 });
 
-export default createStore(bdgtApp);
+export default createStore(bdgtApp)

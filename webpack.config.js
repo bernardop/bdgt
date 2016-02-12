@@ -1,13 +1,13 @@
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var webpack = require('webpack');
-var merge = require('webpack-merge');
+var path = require('path')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+var webpack = require('webpack')
+var merge = require('webpack-merge')
 
-var TARGET = process.env.npm_lifecycle_event;
-var ROOT_PATH = path.join(__dirname);
-var APP_PATH = path.join(ROOT_PATH, 'app');
+var TARGET = process.env.npm_lifecycle_event
+var ROOT_PATH = path.join(__dirname)
+var APP_PATH = path.join(ROOT_PATH, 'app')
 
-process.env.BABEL_ENV = TARGET;
+process.env.BABEL_ENV = TARGET
 
 var common = {
     entry: APP_PATH,
@@ -24,10 +24,7 @@ var common = {
             {
                 test: /\.css$/,
                 loaders: ['style', 'css'],
-                include: [
-                    APP_PATH,
-                    path.join(ROOT_PATH, 'node_modules/react-datepicker/dist')
-                ]
+                include: APP_PATH
             },
             {
                 test: /\.scss$/,
@@ -38,27 +35,14 @@ var common = {
                 test: /\.jsx?$/,
                 loaders: ['babel'],
                 include: APP_PATH
-            },
-
-            { test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery' },
-
-            { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,   loader: "url?limit=10000&mimetype=application/font-woff" },
-            { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,  loader: "url?limit=10000&mimetype=application/font-woff" },
-            { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    loader: "url?limit=10000&mimetype=application/octet-stream" },
-            { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,    loader: "file" },
-            { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,    loader: "url?limit=10000&mimetype=image/svg+xml" }
+            }
         ]
     },
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Bdgt',
-            template: 'tpl/index.tpl.html',
+            template: 'app/index.html',
             inject: 'body'
-        }),
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-            'window.jQuery': 'jquery'
         })
     ]
 }
