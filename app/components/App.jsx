@@ -1,5 +1,10 @@
 import React from 'react'
 
-export default () => {
-    return <div>BDGT</div>
+export default (props) => {
+    return (
+        <div>
+            <h2>BDGT</h2>
+            {props.children}
+        </div>
+    )
 }
