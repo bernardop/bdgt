@@ -12,8 +12,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import * as reducers from './reducers'
 import routes from './routes'
 
-import App from './components/App'
-import AddPeriod from './components/AddPeriod'
+import './styles/index.scss'
 
 const reducer = combineReducers({
     ...reducers,
@@ -36,7 +35,7 @@ render (
     <Provider store={store}>
         <div>
             <Router routes={routes} history={browserHistory} />
-            <DevTools />
+            {/*<DevTools />*/}
         </div>
     </Provider>,
     document.getElementById('app')

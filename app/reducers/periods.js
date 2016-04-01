@@ -1,5 +1,5 @@
 
-import { setPeriodName } from '../utils/utils'
+import { setPeriodName } from '../utils'
 
 const periods = (state = [], action) => {
     switch (action.type) {

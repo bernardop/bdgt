@@ -17,7 +17,7 @@ var common = {
         path: path.join(ROOT_PATH, 'build')
     },
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        extensions: ['', '.js']
     },
     module: {
         loaders: [
