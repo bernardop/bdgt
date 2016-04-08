@@ -1,2 +1,2 @@
-export App from './App'
+export { AppContainer, App } from './App'
 export AddPeriod from './AddPeriod'

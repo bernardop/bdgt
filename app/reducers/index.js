@@ -1,1 +1,2 @@
-export periods from './periods'
+export main from './main'
+//export periods from './periods'

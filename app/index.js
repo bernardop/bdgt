@@ -1,10 +1,6 @@
-import { createDevTools } from 'redux-devtools'
-import LogMonitor from 'redux-devtools-log-monitor'
-import DockMonitor from 'redux-devtools-dock-monitor'
-
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore, combineReducers } from 'redux'
+import { compose, createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
@@ -19,23 +15,28 @@ const reducer = combineReducers({
     routing: routerReducer
 })
 
-const DevTools = createDevTools(
-    <DockMonitor toggleVisibilityKey="ctrl-h" changePositionKey="ctrl-q">
-        <LogMonitor theme="tomorrow" preserveScrollTop={false} />
-    </DockMonitor>
-)
+const createStoreDevTools = compose(
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+)(createStore)
+const store = createStoreDevTools(reducer)
 
-const store = createStore(
-    reducer,
-    DevTools.instrument()
-)
 const history = syncHistoryWithStore(browserHistory, store)
+
+store.dispatch({
+    type: 'SET_STATE',
+    state: {
+        periods: [
+            {id: 1, name: 'Jan-Feb-2016'},
+            {id: 2, name: 'Feb-Mar-2016'},
+            {id: 3, name: 'Mar-Apr-2016'}
+        ]
+    }
+});
 
 render (
     <Provider store={store}>
         <div>
             <Router routes={routes} history={browserHistory} />
-            {/*<DevTools />*/}
         </div>
     </Provider>,
     document.getElementById('app')
