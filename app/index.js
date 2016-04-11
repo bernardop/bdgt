@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
+import initState from './store/store'
 import * as reducers from './reducers'
 import routes from './routes'
 
@@ -24,13 +25,7 @@ const history = syncHistoryWithStore(browserHistory, store)
 
 store.dispatch({
     type: 'SET_STATE',
-    state: {
-        periods: [
-            {id: 1, name: 'Jan-Feb-2016'},
-            {id: 2, name: 'Feb-Mar-2016'},
-            {id: 3, name: 'Mar-Apr-2016'}
-        ]
-    }
+    state: initState
 });
 
 render (

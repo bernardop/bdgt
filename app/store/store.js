@@ -3,35 +3,48 @@ import moment from 'moment'
 
 const dateFormat = 'MM-DD-YYYY'
 
-let store = {
+let initState = {
     periods: [
-        {
-            id: uuid.v4(),
-            name: 'Nov-Dec-2015',
-            beginDate: moment('11/20/2015', dateFormat),
-            endDate: moment('12/19/2015', dateFormat),
-            year: 2015
-        },
-        {
-            id: uuid.v4(),
-            name: 'Dec-Jan-2016',
-            beginDate: moment('12/20/2015', dateFormat),
-            endDate: moment('01/19/2016', dateFormat),
-            year: 2015
-        },
         {
             id: uuid.v4(),
             name: 'Jan-Feb-2016',
             beginDate: moment('01/20/2016', dateFormat),
             endDate: moment('02/19/2016', dateFormat),
-            year: 2016
+            year: 2016,
+            entries: [
+                {
+                    id: uuid.v4(),
+                    type: 'income',
+                    category: 'Fixed Income',
+                    text: 'Job income',
+                    amount: 10000
+                },
+                {
+                    id: uuid.v4(),
+                    type: 'expense',
+                    category: 'Eating Out',
+                    text: 'Lunch at Taco Bell',
+                    amount: 9.45
+                }
+            ]
         },
         {
             id: uuid.v4(),
             name: 'Feb-Mar-2016',
             beginDate: moment('02/20/2016', dateFormat),
             endDate: moment('03/19/2016', dateFormat),
-            year: 2016
+            year: 2016,
+            entries: []
+        },
+        {
+            id: uuid.v4(),
+            name: 'Mar-Apr-2016',
+            beginDate: moment('03/20/2016', dateFormat),
+            endDate: moment('04/19/2016', dateFormat),
+            year: 2016,
+            entries: []
         }
     ]
 }
+
+export default initState
