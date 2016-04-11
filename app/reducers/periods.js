@@ -1,4 +1,3 @@
-
 import { setPeriodName } from '../utils'
 
 const periods = (state = [], action) => {

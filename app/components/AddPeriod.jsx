@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Input, Button, Col, Glyphicon } from 'react-bootstrap'
 import { Link } from 'react-router'
 
-class AddPeriod extends Component {
+export default class AddPeriod extends Component {
     constructor (props) {
         super(props)
     }
@@ -24,5 +24,3 @@ class AddPeriod extends Component {
         )
     }
 }
-
-export default AddPeriod

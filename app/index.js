@@ -1,20 +1,15 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { compose, createStore, combineReducers } from 'redux'
+import { compose, createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 import initState from './store/store'
-import * as reducers from './reducers'
+import reducer from './reducers/index'
 import routes from './routes'
 
 import './styles/index.scss'
-
-const reducer = combineReducers({
-    ...reducers,
-    routing: routerReducer
-})
 
 const createStoreDevTools = compose(
     window.devToolsExtension ? window.devToolsExtension() : f => f

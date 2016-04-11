@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Header from './Header'
 
-class Main extends Component {
+export default class Main extends Component {
     constructor (props) {
         super(props)
     }
@@ -10,5 +10,3 @@ class Main extends Component {
         return <Header />
     }
 }
-
-export default Main

@@ -26,4 +26,4 @@ const mapStateToProps = (state) => {
 
 const AppContainer = connect(mapStateToProps, actionCreators)(App);
 
-export { App, AppContainer }
+export default AppContainer
