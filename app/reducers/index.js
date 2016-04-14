@@ -4,7 +4,7 @@ import { routerReducer } from 'react-router-redux'
 import periods from './periods'
 
 export default combineReducers({
-    periods,
-    routing: routerReducer,
-    form: formReducer
+  periods,
+  routing: routerReducer,
+  form: formReducer
 })

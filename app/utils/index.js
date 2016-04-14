@@ -1,1 +1,1 @@
-export setPeriodName from './utils'
+export { setPeriodName } from './utils'
