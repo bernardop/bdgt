@@ -24,18 +24,21 @@ var common = {
       {
         test: /\.css$/,
         loaders: ['style', 'css'],
-        include: APP_PATH
+        include: [ APP_PATH, path.join(ROOT_PATH, 'node_modules/react-widgets/dist/css') ]
       },
       {
         test: /\.scss$/,
         loaders: ['style', 'css', 'sass'],
-        include: APP_PATH
+        include: [ APP_PATH ]
       },
       {
         test: /\.jsx?$/,
         loaders: ['babel'],
         include: APP_PATH
-      }
+      },
+      { test: /\.gif$/, loader: 'url-loader?mimetype=image/png' },
+      { test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/, loader: 'url-loader?mimetype=application/font-woff' },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9].[0-9].[0-9])?$/, loader: 'file-loader?name=[name].[ext]' }
     ]
   },
   plugins: [
