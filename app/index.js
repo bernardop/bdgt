@@ -10,7 +10,6 @@ import reducer from './reducers/index'
 import routes from './routes'
 
 import './styles/index.scss'
-import 'react-widgets/dist/css/react-widgets.css'
 
 const createStoreDevTools = compose(
   window.devToolsExtension ? window.devToolsExtension() : (f) => f

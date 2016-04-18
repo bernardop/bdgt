@@ -1,15 +1,24 @@
 import React, { Component } from 'react'
 import { Input, Button, Col } from 'react-bootstrap'
-import DateTimePicker from 'react-widgets/lib/DateTimePicker'
-import momentLocalizer from 'react-widgets/lib/localizers/moment'
-import Moment from 'moment'
 import { Link } from 'react-router'
 import { reduxForm } from 'redux-form'
 import { addPeriod } from '../actions/action_creators'
 
 export const fields = [ 'periodStartDate', 'periodEndDate' ]
 
-momentLocalizer(Moment)
+const validate = (values) => {
+  const errors = {}
+
+  if (!values.periodStartDate) {
+    errors.periodStartDate = 'Required'
+  }
+
+  if (!values.periodEndDate) {
+    errors.periodEndDate = 'Required'
+  }
+
+  return errors
+}
 
 class AddPeriod extends Component {
   render () {
@@ -26,8 +35,8 @@ class AddPeriod extends Component {
         <Col mdOffset={3} md={6} xsOffset={1} xs={10}>
           <h2>Create a new period</h2>
           <form onSubmit={handleSubmit}>
-            {/* <Input type='text' label='Start date' {...periodStartDate} />*/}
-            <DateTimePicker time={false} format='MM/DD/YYYY' {...periodStartDate} />
+            <Input type='text' label='Start date' {...periodStartDate} />
+            {periodStartDate.touched && periodStartDate.error && <div>{periodStartDate.error}</div>}
             <Input type='text' label='End date' {...periodEndDate} />
             <Button bsStyle='primary' type='submit'>Create</Button>
           </form>
@@ -40,7 +49,8 @@ class AddPeriod extends Component {
 export default reduxForm(
   {
     form: 'addPeriod',
-    fields
+    fields,
+    validate
   },
   undefined,
   {
