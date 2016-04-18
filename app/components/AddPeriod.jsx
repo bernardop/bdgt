@@ -21,11 +21,23 @@ const validate = (values) => {
 }
 
 class AddPeriod extends Component {
+  getErrorAttrs (field) {
+    const fieldHasErrors = field.error && field.touched
+    return {
+      help: fieldHasErrors ? field.error : null,
+      bsStyle: fieldHasErrors ? 'error' : null,
+      hasFeedback: fieldHasErrors
+    }
+  }
+
   render () {
     const {
       fields: { periodStartDate, periodEndDate },
       handleSubmit
     } = this.props
+
+    const periodStartDateErrorAttrs = this.getErrorAttrs(periodStartDate)
+    const periodEndDateErrorAttrs = this.getErrorAttrs(periodEndDate)
 
     return (
       <div>
@@ -35,9 +47,8 @@ class AddPeriod extends Component {
         <Col mdOffset={3} md={6} xsOffset={1} xs={10}>
           <h2>Create a new period</h2>
           <form onSubmit={handleSubmit}>
-            <Input type='text' label='Start date' {...periodStartDate} />
-            {periodStartDate.touched && periodStartDate.error && <div>{periodStartDate.error}</div>}
-            <Input type='text' label='End date' {...periodEndDate} />
+            <Input type='text' label='Start date' {...periodStartDateErrorAttrs} {...periodStartDate} />
+            <Input type='text' label='End date' {...periodEndDateErrorAttrs} {...periodEndDate} />
             <Button bsStyle='primary' type='submit'>Create</Button>
           </form>
         </Col>
