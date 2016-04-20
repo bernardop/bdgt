@@ -1,1 +1,0 @@
-export { setPeriodName } from './utils'

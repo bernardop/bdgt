@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 import { routerReducer } from 'react-router-redux'
-import periods from './periods'
+import app from './app'
 
 export default combineReducers({
-  periods,
+  app,
   routing: routerReducer,
   form: formReducer
 })

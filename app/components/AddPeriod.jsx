@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Button, Col } from 'react-bootstrap'
+import { FormGroup, FormControl, ControlLabel, HelpBlock, Button, Col } from 'react-bootstrap'
 import { Link } from 'react-router'
 import { reduxForm } from 'redux-form'
 import { addPeriod } from '../actions/action_creators'
@@ -21,23 +21,14 @@ const validate = (values) => {
 }
 
 class AddPeriod extends Component {
-  getErrorAttrs (field) {
-    const fieldHasErrors = field.error && field.touched
-    return {
-      help: fieldHasErrors ? field.error : null,
-      bsStyle: fieldHasErrors ? 'error' : null,
-      hasFeedback: fieldHasErrors
-    }
-  }
-
   render () {
     const {
       fields: { periodStartDate, periodEndDate },
       handleSubmit
     } = this.props
 
-    const periodStartDateErrorAttrs = this.getErrorAttrs(periodStartDate)
-    const periodEndDateErrorAttrs = this.getErrorAttrs(periodEndDate)
+    const periodStartDateHasErrors = periodStartDate.error && periodStartDate.touched
+    const periodEndDateHasErrors = periodEndDate.error && periodEndDate.touched
 
     return (
       <div>
@@ -47,8 +38,20 @@ class AddPeriod extends Component {
         <Col mdOffset={3} md={6} xsOffset={1} xs={10}>
           <h2>Create a new period</h2>
           <form onSubmit={handleSubmit}>
-            <Input type='text' label='Start date' {...periodStartDateErrorAttrs} {...periodStartDate} />
-            <Input type='text' label='End date' {...periodEndDateErrorAttrs} {...periodEndDate} />
+            <FormGroup validationState={periodStartDateHasErrors ? 'error' : null}>
+              <ControlLabel>Start date</ControlLabel>
+              <FormControl type='text' {...periodStartDate} />
+              {periodStartDateHasErrors ? <FormControl.Feedback /> : null}
+              {periodStartDateHasErrors ? <HelpBlock>{periodStartDate.error}</HelpBlock> : null}
+            </FormGroup>
+
+            <FormGroup validationState={periodEndDateHasErrors ? 'error' : null}>
+              <ControlLabel>End date</ControlLabel>
+              <FormControl type='text' {...periodEndDate} />
+              {periodEndDateHasErrors ? <FormControl.Feedback /> : null}
+              {periodEndDateHasErrors ? <HelpBlock>{periodEndDate.error}</HelpBlock> : null}
+            </FormGroup>
+
             <Button bsStyle='primary' type='submit'>Create</Button>
           </form>
         </Col>
