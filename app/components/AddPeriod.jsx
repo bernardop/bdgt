@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { FormGroup, FormControl, ControlLabel, HelpBlock, Button, Col } from 'react-bootstrap'
+import { Button, Col } from 'react-bootstrap'
 import { Link } from 'react-router'
 import { reduxForm } from 'redux-form'
 import { addPeriod } from '../actions/action_creators'
+import InputWrapper from './InputWrapper'
 
 export const fields = [ 'periodStartDate', 'periodEndDate' ]
 
@@ -38,20 +39,8 @@ class AddPeriod extends Component {
         <Col mdOffset={3} md={6} xsOffset={1} xs={10}>
           <h2>Create a new period</h2>
           <form onSubmit={handleSubmit}>
-            <FormGroup validationState={periodStartDateHasErrors ? 'error' : null}>
-              <ControlLabel>Start date</ControlLabel>
-              <FormControl type='text' {...periodStartDate} />
-              {periodStartDateHasErrors ? <FormControl.Feedback /> : null}
-              {periodStartDateHasErrors ? <HelpBlock>{periodStartDate.error}</HelpBlock> : null}
-            </FormGroup>
-
-            <FormGroup validationState={periodEndDateHasErrors ? 'error' : null}>
-              <ControlLabel>End date</ControlLabel>
-              <FormControl type='text' {...periodEndDate} />
-              {periodEndDateHasErrors ? <FormControl.Feedback /> : null}
-              {periodEndDateHasErrors ? <HelpBlock>{periodEndDate.error}</HelpBlock> : null}
-            </FormGroup>
-
+            <InputWrapper fieldHasErrors={periodStartDateHasErrors} field={periodStartDate} label='Start date'/>
+            <InputWrapper fieldHasErrors={periodEndDateHasErrors} field={periodEndDate} label='End date'/>
             <Button bsStyle='primary' type='submit'>Create</Button>
           </form>
         </Col>
