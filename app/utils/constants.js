@@ -1,1 +1,5 @@
-export const DATE_FORMAT = 'MM-DD-YYYY'
+export const DateFormats = {
+  SLASH: 'MM/DD/YYYY',
+  DASH: 'MM-DD-YYYY',
+  PERIOD: 'MM.DD.YYYY'
+}

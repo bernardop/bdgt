@@ -1,14 +1,12 @@
 import { Map, List } from 'immutable'
 import uuid from 'uuid'
-import { setPeriodName } from '../utils/periodUtils'
-import moment from 'moment'
-import { DATE_FORMAT } from '../utils/constants'
+import { setPeriodName, dateToMoment } from '../utils/periodUtils'
 
 const period = (state, action) => {
   switch (action.type) {
     case 'ADD_PERIOD':
-      const startDate = moment(action.period.periodStartDate, DATE_FORMAT)
-      const endDate = moment(action.period.periodEndDate, DATE_FORMAT)
+      const startDate = dateToMoment(action.period.periodStartDate)
+      const endDate = dateToMoment(action.period.periodEndDate)
       return Map({
         id: uuid.v4(),
         name: setPeriodName(startDate, endDate),

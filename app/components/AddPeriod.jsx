@@ -7,15 +7,24 @@ import InputWrapper from './InputWrapper'
 
 export const fields = [ 'periodStartDate', 'periodEndDate' ]
 
+const dateIsValid = (dateText) => {
+  const dateRegexp = /^(?:(?:(?:0?[13578]|1[02])(\/|-|\.)31)\1|(?:(?:0?[1,3-9]|1[0-2])(\/|-|\.)(?:29|30)\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:0?2(\/|-|\.)29\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\/|-|\.)(?:0?[1-9]|1\d|2[0-8])\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/
+  return dateText.match(dateRegexp)
+}
+
 const validate = (values) => {
   const errors = {}
 
   if (!values.periodStartDate) {
     errors.periodStartDate = 'Required'
+  } else if (!dateIsValid(values.periodStartDate)) {
+    errors.periodStartDate = 'Please enter a valid date'
   }
 
   if (!values.periodEndDate) {
     errors.periodEndDate = 'Required'
+  } else if (!dateIsValid(values.periodEndDate)) {
+    errors.periodEndDate = 'Please enter a valid date'
   }
 
   return errors
