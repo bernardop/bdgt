@@ -25,9 +25,7 @@ store.dispatch({
 
 render(
   <Provider store={store}>
-    <div>
-      <Router routes={routes} history={history} />
-    </div>
+    <Router routes={routes} history={history} />
   </Provider>,
   document.getElementById('app')
 )
