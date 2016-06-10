@@ -1,24 +1,15 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import * as actionCreators from '../actions/action_creators'
+import { observer } from 'mobx-react'
+import DevTools from 'mobx-react-devtools'
 
-class App extends Component {
+@observer
+export default class App extends Component {
   render () {
     return (
       <div>
         {this.props.children}
+        <DevTools />
       </div>
     )
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    // todos: state.get('todos'),
-    // filter: state.get('filter')
-  }
-}
-
-const AppContainer = connect(mapStateToProps, actionCreators)(App)
-
-export default AppContainer

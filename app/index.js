@@ -1,31 +1,15 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { compose, createStore } from 'redux'
-import { Provider } from 'react-redux'
 import { Router, browserHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
+import { useStrict as mobxStrictMode } from 'mobx'
 
-import initState from './store/store'
-import reducer from './reducers/index'
 import routes from './routes'
 
 import './styles/index.scss'
 
-const createStoreDevTools = compose(
-  window.devToolsExtension ? window.devToolsExtension() : (f) => f
-)(createStore)
-const store = createStoreDevTools(reducer)
-
-const history = syncHistoryWithStore(browserHistory, store)
-
-store.dispatch({
-  type: 'SET_STATE',
-  state: initState
-})
+mobxStrictMode(true)
 
 render(
-  <Provider store={store}>
-    <Router routes={routes} history={history} />
-  </Provider>,
+  <Router routes={routes} history={browserHistory} />,
   document.getElementById('app')
 )
