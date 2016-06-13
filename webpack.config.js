@@ -24,7 +24,11 @@ var common = {
       {
         test: /\.css$/,
         loaders: ['style', 'css'],
-        include: [ APP_PATH, path.join(ROOT_PATH, 'node_modules/react-widgets/dist/css') ]
+        include: [
+          APP_PATH,
+          path.join(ROOT_PATH, 'node_modules/react-widgets/dist/css'),
+          path.join(ROOT_PATH, 'node_modules/react-infinite-calendar')
+        ]
       },
       {
         test: /\.scss$/,

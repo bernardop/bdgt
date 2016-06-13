@@ -31,6 +31,7 @@ class PeriodStore {
   @observable periods = []
 
   @action addPeriod = (startDate, endDate) => {
+    console.log('start', startDate, 'end', endDate)
     const regexp = /[\.-]/g
     return this.periods.push(new Period(this, startDate.replace(regexp, '/'), endDate.replace(regexp, '/')))
   }
