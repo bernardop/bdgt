@@ -8,7 +8,7 @@ export default class App extends Component {
     return (
       <div>
         {this.props.children}
-        <DevTools />
+        <DevTools position={{bottom: 0, right: '20px'}}/>
       </div>
     )
   }

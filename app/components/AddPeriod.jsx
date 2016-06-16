@@ -18,8 +18,12 @@ export default class AddPeriod extends Component {
   constructor (props) {
     super(props)
 
-    this.sDateValue = false
-    this.eDateValue = false
+    this.setInitialValues(false, false)
+  }
+
+  @action setInitialValues = (sDateValue, eDateValue) => {
+    this.sDateValue = sDateValue
+    this.eDateValue = eDateValue
   }
 
   @action handleCreatePeriod = () => {
@@ -34,7 +38,13 @@ export default class AddPeriod extends Component {
   }
 
   @computed get eDateMinDate () {
-    return (this.sDateValue) ? Number(this.sDateValue.toDate()) : Number(new Date(1980, 0, 1))
+    var minDate = new Date(1980, 0, 1)
+    if (this.sDateValue) {
+      minDate = new Date(this.sDateValue.toDate().valueOf())
+      minDate.setDate(minDate.getDate() + 1)
+    }
+
+    return Number(minDate)
   }
 
   @computed get addButtonStatus () {
@@ -48,12 +58,15 @@ export default class AddPeriod extends Component {
   @computed get selectedEndDate () {
     var result = false;
     if (this.sDateValue) {
-      result = this.sDateValue.toDate().getDate() + 1
+      result = new Date(this.sDateValue.toDate().valueOf())
+      result.setDate(result.getDate() + 1)
     }
+
     return result
   }
 
   render () {
+    const calendarSize = 375
     return (
       <div>
         <Col mdOffset={11} md={1} xsOffset={11} xs={1}>
@@ -62,17 +75,26 @@ export default class AddPeriod extends Component {
         <Col mdOffset={2} md={8} xsOffset={1} xs={10}>
           <h2>Create a new period</h2>
           <Col md={6}>
-            <InfiniteCalendar width={350} height={350} selectedDate={this.selectedStartDate}
-              onSelect={action((date) => this.sDateValue = date)}
-              afterSelect={action((date) => this.eDateValue = moment(this.eDateMinDate))}/>
+            <h3 className='add-period-label'>Start date</h3>
+            <div className='calendar-container'>
+              <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedStartDate}
+                onSelect={action((date) => this.sDateValue = date)} className='calendar'
+                afterSelect={action((date) => this.eDateValue = moment(this.eDateMinDate))}
+                showHeader={false} />
+            </div>
           </Col>
           <Col md={6}>
-            <InfiniteCalendar width={350} height={350} selectedDate={this.selectedEndDate}
-              onSelect={action((date) => this.eDateValue = date)}
-              disabledDays={this.eDateDisabledDays} minDate={this.eDateMinDate}/>
+            <h3 className='add-period-label'>End date</h3>
+            <div className="calendar-container">
+              <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedEndDate}
+                onSelect={action((date) => this.eDateValue = date)} className='calendar'
+                disabledDays={this.eDateDisabledDays} minDate={this.eDateMinDate}
+                showHeader={false} />
+            </div>
           </Col>
           <Col mdOffset={4} md={4} xsOffset={1} xs={10}>
-            <Button disabled={this.addButtonStatus} bsStyle='primary' type='button' block bsSize='large' onClick={this.handleCreatePeriod}>Create</Button>
+            <Button disabled={this.addButtonStatus} bsClass='btn btn-primary btn-lg btn-block btn-add-period'
+              type='button' onClick={this.handleCreatePeriod}>Create</Button>
           </Col>
         </Col>
       </div>
