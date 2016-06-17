@@ -1,8 +1,17 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import Header from './Header'
 
 export default class Main extends Component {
   render () {
-    return <Header />
+    return (
+      <div>
+        <Header />
+        {this.props.children}
+      </div>
+    )
   }
+}
+
+Main.propTypes = {
+  children: PropTypes.node
 }
