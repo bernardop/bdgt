@@ -79,7 +79,7 @@ export default class AddPeriod extends Component {
             <div className='calendar-container'>
               <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedStartDate}
                 onSelect={action((date) => this.sDateValue = date)} className='calendar'
-                afterSelect={action((date) => this.eDateValue = moment(this.eDateMinDate))}
+                afterSelect={action(() => this.eDateValue = moment(this.eDateMinDate))}
                 showHeader={false} />
             </div>
           </Col>

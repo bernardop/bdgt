@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { observer } from 'mobx-react'
 import DevTools from 'mobx-react-devtools'
 
@@ -12,4 +12,8 @@ export default class App extends Component {
       </div>
     )
   }
+}
+
+App.propTypes = {
+  children: PropTypes.node
 }
