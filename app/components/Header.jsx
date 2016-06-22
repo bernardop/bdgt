@@ -1,9 +1,13 @@
 import React from 'react'
-import { PageHeader } from 'react-bootstrap'
+import { PageHeader, Row, Col } from 'react-bootstrap'
 
 const Header = () => {
   return (
-    <PageHeader>BDGT <small>Never go out of budget again</small></PageHeader>
+    <Row>
+      <Col md={12}>
+        <PageHeader>BDGT <small>Never go out of budget again</small></PageHeader>
+      </Col>
+    </Row>
   )
 }
 
