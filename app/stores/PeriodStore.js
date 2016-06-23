@@ -27,7 +27,7 @@ class Period {
   }
 }
 
-class PeriodStore {
+export default class PeriodStore {
   @observable periods = []
 
   @action addPeriod = (startDate, endDate) => {
@@ -36,4 +36,4 @@ class PeriodStore {
   }
 }
 
-export const periodStore = new PeriodStore()
+//export const periodStore = new PeriodStore()

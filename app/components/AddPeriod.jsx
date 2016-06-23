@@ -6,11 +6,9 @@ import { observable, action, computed } from 'mobx'
 import { observer } from 'mobx-react'
 import moment from 'moment'
 
-import { periodStore } from '../stores/PeriodStore'
-
 import 'react-infinite-calendar/styles.css'
 
-@observer
+@observer(['stores'])
 export default class AddPeriod extends Component {
   @observable sDateValue
   @observable eDateValue
@@ -28,7 +26,7 @@ export default class AddPeriod extends Component {
 
   @action handleCreatePeriod = () => {
     const dFormat = 'MM/DD/YYYY'
-    periodStore.addPeriod(this.sDateValue.format(dFormat), this.eDateValue.format(dFormat))
+    this.props.stores.periodStore.addPeriod(this.sDateValue.format(dFormat), this.eDateValue.format(dFormat))
     this.sDateValue = false
     this.eDateValue = false
   }
