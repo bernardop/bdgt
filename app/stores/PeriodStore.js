@@ -34,6 +34,20 @@ export default class PeriodStore {
     const regexp = /[\.-]/g
     return this.periods.push(new Period(this, startDate.replace(regexp, '/'), endDate.replace(regexp, '/')))
   }
-}
 
-//export const periodStore = new PeriodStore()
+  @computed get periodsYears() {
+    if (this.periods.length === 0) {
+      return []
+    }
+    
+    const years = this.periods.reduce((memo, current) => {
+      const year = current.endDate.year()
+      if (memo.indexOf(year) === -1) {
+        memo.push(year)
+      }
+      return memo
+    }, [])
+
+    return years.sort((a, b) => b - a)
+  }
+}

@@ -1,9 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 
-export default class BudgetPeriod extends Component {
+class BudgetPeriod extends Component {
   render () {
     return (
       <div>{this.props.params.periodName}</div>
     )
   }
 }
+
+BudgetPeriod.propTypes = {
+  params: PropTypes.object
+}
+
+export default BudgetPeriod

@@ -4,6 +4,7 @@ import Header from './Header'
 import classNames from 'classnames'
 import { observable, action } from 'mobx'
 import { observer } from 'mobx-react'
+import Sidebar from './Sidebar'
 
 @observer
 export default class Main extends Component {
@@ -25,7 +26,7 @@ export default class Main extends Component {
       <div className={containerClasses}>
         <div id='sidebar' className='sidebar-offcanvas'>
           <Col md={12}>
-            <h3>Sidebar</h3>
+            <Sidebar />
           </Col>
         </div>
         <div id='main'>

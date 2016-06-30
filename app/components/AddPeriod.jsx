@@ -1,15 +1,16 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { Button, Col } from 'react-bootstrap'
 import { Link } from 'react-router'
 import InfiniteCalendar from 'react-infinite-calendar'
 import { observable, action, computed } from 'mobx'
 import { observer } from 'mobx-react'
 import moment from 'moment'
+import PeriodStore from '../stores/PeriodStore'
 
 import 'react-infinite-calendar/styles.css'
 
 @observer(['stores'])
-export default class AddPeriod extends Component {
+class AddPeriod extends Component {
   @observable sDateValue
   @observable eDateValue
 
@@ -68,7 +69,7 @@ export default class AddPeriod extends Component {
     return (
       <div>
         <Col mdOffset={11} md={1} xsOffset={11} xs={1}>
-          <Link to='/' className='btn btn-lg glyphicon glyphicon-remove-circle' />
+          <Link to='/periods' className='btn btn-lg glyphicon glyphicon-remove-circle' />
         </Col>
         <Col mdOffset={2} md={8} xsOffset={1} xs={10}>
           <h2>Create a new period</h2>
@@ -99,3 +100,11 @@ export default class AddPeriod extends Component {
     )
   }
 }
+
+AddPeriod.propTypes = {
+  stores: PropTypes.shape({
+    periodStore: PropTypes.instanceOf(PeriodStore)
+  })
+}
+
+export default AddPeriod
