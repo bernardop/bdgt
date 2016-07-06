@@ -5,10 +5,15 @@ import PeriodStore from '../stores/PeriodStore'
 @observer(['stores'])
 class Sidebar extends Component {
   render () {
+    const { stores } = this.props
     return (
       <div>
         <h3>Periods</h3>
-        {this.props.stores.periodStore.periodsYears.map((year) => <div>{year}</div>)}
+        {Object.keys(stores.periodStore.periodsByYear).map((year) => {
+          return (
+            <div>{year}</div>
+          )
+        })}
       </div>
     )
   }
