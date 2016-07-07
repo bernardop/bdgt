@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
-import { Button, Col } from 'react-bootstrap'
-import { Link } from 'react-router'
+import RaisedButton from 'material-ui/RaisedButton'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import NavigationClose from 'material-ui/svg-icons/navigation/close'
 import InfiniteCalendar from 'react-infinite-calendar'
 import { observable, action, computed } from 'mobx'
 import { observer } from 'mobx-react'
@@ -30,6 +31,11 @@ class AddPeriod extends Component {
     this.props.stores.periodStore.addPeriod(this.sDateValue.format(dFormat), this.eDateValue.format(dFormat))
     this.sDateValue = false
     this.eDateValue = false
+    this.props.history.push('/periods')
+  }
+
+  handleCloseButtonClick = () => {
+    this.props.history.push('/periods')
   }
 
   @computed get eDateDisabledDays () {
@@ -55,7 +61,7 @@ class AddPeriod extends Component {
   }
 
   @computed get selectedEndDate () {
-    var result = false;
+    var result = false
     if (this.sDateValue) {
       result = new Date(this.sDateValue.toDate().valueOf())
       result.setDate(result.getDate() + 1)
@@ -68,34 +74,29 @@ class AddPeriod extends Component {
     const calendarSize = 375
     return (
       <div>
-        <Col mdOffset={11} md={1} xsOffset={11} xs={1}>
-          <Link to='/periods' className='btn btn-lg glyphicon glyphicon-remove-circle' />
-        </Col>
-        <Col mdOffset={2} md={8} xsOffset={1} xs={10}>
-          <h2>Create a new period</h2>
-          <Col md={6}>
-            <h3 className='add-period-label'>Start date</h3>
-            <div className='calendar-container'>
-              <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedStartDate}
-                onSelect={action((date) => this.sDateValue = date)} className='calendar'
-                afterSelect={action(() => this.eDateValue = moment(this.eDateMinDate))}
-                showHeader={false} />
-            </div>
-          </Col>
-          <Col md={6}>
-            <h3 className='add-period-label'>End date</h3>
-            <div className="calendar-container">
-              <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedEndDate}
-                onSelect={action((date) => this.eDateValue = date)} className='calendar'
-                disabledDays={this.eDateDisabledDays} minDate={this.eDateMinDate}
-                showHeader={false} />
-            </div>
-          </Col>
-          <Col mdOffset={4} md={4} xsOffset={1} xs={10}>
-            <Button disabled={this.addButtonStatus} bsClass='btn btn-primary btn-lg btn-block btn-add-period'
-              type='button' onClick={this.handleCreatePeriod}>Create</Button>
-          </Col>
-        </Col>
+        <FloatingActionButton onMouseUp={this.handleCloseButtonClick}>
+          <NavigationClose />
+        </FloatingActionButton>
+        <h2>Create a new period</h2>
+
+        <h3 className='add-period-label'>Start date</h3>
+        <div className='calendar-container'>
+          <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedStartDate}
+            onSelect={action((date) => this.sDateValue = date)} className='calendar'
+            afterSelect={action(() => this.eDateValue = moment(this.eDateMinDate))}
+            showHeader={false} />
+        </div>
+
+        <h3 className='add-period-label'>End date</h3>
+        <div className="calendar-container">
+          <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedEndDate}
+            onSelect={action((date) => this.eDateValue = date)} className='calendar'
+            disabledDays={this.eDateDisabledDays} minDate={this.eDateMinDate}
+            showHeader={false} />
+        </div>
+        <RaisedButton primary={true} disabled={this.addButtonStatus} className='btn-add-period'
+          onClick={this.handleCreatePeriod}>Create</RaisedButton>
+
       </div>
     )
   }
@@ -104,7 +105,8 @@ class AddPeriod extends Component {
 AddPeriod.propTypes = {
   stores: PropTypes.shape({
     periodStore: PropTypes.instanceOf(PeriodStore)
-  })
+  }),
+  history: PropTypes.object
 }
 
 export default AddPeriod

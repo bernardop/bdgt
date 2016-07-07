@@ -1,42 +1,38 @@
 import React, { Component, PropTypes } from 'react'
-import { Col, Button, Glyphicon } from 'react-bootstrap'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
+import Drawer from 'material-ui/Drawer'
 import Header from './Header'
-import classNames from 'classnames'
 import { observable, action } from 'mobx'
 import { observer } from 'mobx-react'
 import Sidebar from './Sidebar'
 
 @observer
 export default class Main extends Component {
-  @observable sidebarActive = true
+  @observable drawerOpen = true
 
   constructor (props) {
     super(props)
 
-    this.toggleSidebarStatus()
+    this.toggleDrawer()
   }
 
-  @action toggleSidebarStatus = () => {
-    this.sidebarActive = !this.sidebarActive
+  @action toggleDrawer = () => {
+    this.drawerOpen = !this.drawerOpen
   }
 
   render () {
-    const containerClasses = classNames('row-offcanvas', 'row-offcanvas-left', { 'active': this.sidebarActive })
     return (
-      <div className={containerClasses}>
-        <div id='sidebar' className='sidebar-offcanvas'>
-          <Col md={12}>
-            <Sidebar />
-          </Col>
-        </div>
+      <div>
+        <Drawer open={this.drawerOpen}>
+          <Sidebar />
+        </Drawer>
         <div id='main'>
-          <Col md={12}>
-            <Header />
-            <Col smHidden={true} mdHidden={true} lgHidden={true} md={12}>
-              <Button onClick={this.toggleSidebarStatus}><Glyphicon glyph="align-justify" /></Button>
-            </Col>
-            {this.props.children}
-          </Col>
+          <Header />
+          <FloatingActionButton onMouseUp={this.toggleDrawer}>
+            <NavigationMenu />
+          </FloatingActionButton>
+          {this.props.children}
         </div>
       </div>
     )

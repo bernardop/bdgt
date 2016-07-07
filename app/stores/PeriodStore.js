@@ -19,7 +19,15 @@ class Period {
   }
 
   @computed get displayName() {
-    return `${moment.monthsShort(this.startDate.month())}-${moment.monthsShort(this.endDate.month())}-${this.endDate.year()}`
+    const startMonth = moment.monthsShort(this.startDate.month())
+    const endMonth = moment.monthsShort(this.endDate.month())
+    const endYear = this.endDate.year()
+
+    if (startMonth === endMonth) {
+      return `${startMonth}-${endYear}`
+    }
+
+    return `${startMonth}-${endMonth}-${endYear}`
   }
 
   @computed get year() {
@@ -42,7 +50,7 @@ export default class PeriodStore {
 
     const years = this.periods.reduce((memo, current) => {
       const year = current.endDate.year()
-      if (!Object.hasOwnProperty(year)) {
+      if (!memo.hasOwnProperty(year)) {
         memo[year] = []
       }
       memo[year].push(current)

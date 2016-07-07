@@ -3,12 +3,16 @@ import { render } from 'react-dom'
 import { Router, browserHistory } from 'react-router'
 import { useStrict as mobxStrictMode } from 'mobx'
 import { Provider } from 'mobx-react'
+import injectTapEventPlugin from 'react-tap-event-plugin'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import routes from './routes'
 
 import PeriodStore from './stores/PeriodStore'
 
 import './styles/index.scss'
+
+injectTapEventPlugin();
 
 mobxStrictMode(true)
 
@@ -17,8 +21,10 @@ const stores = {
 }
 
 render(
-  <Provider stores={stores}>
-    <Router routes={routes} history={browserHistory} />
-  </Provider>,
+  <MuiThemeProvider>
+    <Provider stores={stores}>
+      <Router routes={routes} history={browserHistory} />
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('app')
 )

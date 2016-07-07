@@ -11,7 +11,14 @@ class Sidebar extends Component {
         <h3>Periods</h3>
         {Object.keys(stores.periodStore.periodsByYear).map((year) => {
           return (
-            <div>{year}</div>
+            <div>
+              <div>{year}</div>
+              <ul>
+                {stores.periodStore.periodsByYear[year].map((period) => {
+                  return <li>{period.displayName}</li>
+                })}
+              </ul>
+            </div>
           )
         })}
       </div>
