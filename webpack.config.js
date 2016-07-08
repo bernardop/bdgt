@@ -30,6 +30,13 @@ var common = {
         ]
       },
       {
+        test: /\.css$/,
+        loaders: ['style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'],
+        include: [
+          /flexboxgrid/
+        ]
+      },
+      {
         test: /\.scss$/,
         loaders: ['style', 'css', 'sass'],
         include: [ APP_PATH ]

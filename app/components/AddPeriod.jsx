@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { Grid, Col, Row } from 'react-flexbox-grid/lib/index'
 import RaisedButton from 'material-ui/RaisedButton'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import NavigationClose from 'material-ui/svg-icons/navigation/close'
@@ -73,31 +74,46 @@ class AddPeriod extends Component {
   render () {
     const calendarSize = 375
     return (
-      <div>
-        <FloatingActionButton onMouseUp={this.handleCloseButtonClick}>
-          <NavigationClose />
-        </FloatingActionButton>
-        <h2>Create a new period</h2>
-
-        <h3 className='add-period-label'>Start date</h3>
-        <div className='calendar-container'>
-          <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedStartDate}
-            onSelect={action((date) => this.sDateValue = date)} className='calendar'
-            afterSelect={action(() => this.eDateValue = moment(this.eDateMinDate))}
-            showHeader={false} />
-        </div>
-
-        <h3 className='add-period-label'>End date</h3>
-        <div className="calendar-container">
-          <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedEndDate}
-            onSelect={action((date) => this.eDateValue = date)} className='calendar'
-            disabledDays={this.eDateDisabledDays} minDate={this.eDateMinDate}
-            showHeader={false} />
-        </div>
-        <RaisedButton primary={true} disabled={this.addButtonStatus} className='btn-add-period'
-          onClick={this.handleCreatePeriod}>Create</RaisedButton>
-
-      </div>
+      <Grid>
+        <Row end="xs">
+          <Col xsOffset={1} xs={10}>
+            <FloatingActionButton onClick={this.handleCloseButtonClick}>
+              <NavigationClose />
+            </FloatingActionButton>
+          </Col>
+        </Row>
+        <Row start="xs">
+          <Col xsOffset={1} xs={10}>
+            <h2>Create a new period</h2>
+          </Col>
+        </Row>
+        <Row around="xs" center="xs">
+          <Col xs={12} md={6}>
+            <h3 className='add-period-label'>Start date</h3>
+            <div className='calendar-container'>
+              <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedStartDate}
+                onSelect={action((date) => this.sDateValue = date)} className='calendar'
+                afterSelect={action(() => this.eDateValue = moment(this.eDateMinDate))}
+                showHeader={false} />
+            </div>
+          </Col>
+          <Col xs={12} md={6}>
+            <h3 className='add-period-label'>End date</h3>
+            <div className="calendar-container">
+              <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedEndDate}
+                onSelect={action((date) => this.eDateValue = date)} className='calendar'
+                disabledDays={this.eDateDisabledDays} minDate={this.eDateMinDate}
+                showHeader={false} />
+            </div>
+          </Col>
+        </Row>
+        <Row center="xs">
+          <Col xs={12}>
+            <RaisedButton label="Create" primary={true} disabled={this.addButtonStatus} className='btn-add-period'
+              onClick={this.handleCreatePeriod} />
+          </Col>
+        </Row>
+      </Grid>
     )
   }
 }

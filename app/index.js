@@ -5,6 +5,7 @@ import { useStrict as mobxStrictMode } from 'mobx'
 import { Provider } from 'mobx-react'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import muiTheme from './utils/muiConfig'
 
 import routes from './routes'
 
@@ -21,7 +22,7 @@ const stores = {
 }
 
 render(
-  <MuiThemeProvider>
+  <MuiThemeProvider muiTheme={muiTheme}>
     <Provider stores={stores}>
       <Router routes={routes} history={browserHistory} />
     </Provider>

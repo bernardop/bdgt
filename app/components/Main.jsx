@@ -9,12 +9,10 @@ import Sidebar from './Sidebar'
 
 @observer
 export default class Main extends Component {
-  @observable drawerOpen = true
+  @observable drawerOpen = false
 
   constructor (props) {
     super(props)
-
-    this.toggleDrawer()
   }
 
   @action toggleDrawer = () => {
@@ -24,7 +22,7 @@ export default class Main extends Component {
   render () {
     return (
       <div>
-        <Drawer open={this.drawerOpen}>
+        <Drawer open={this.drawerOpen} docked={false} width={300} onRequestChange={action((open) => this.drawerOpen = open)}>
           <Sidebar />
         </Drawer>
         <div id='main'>
