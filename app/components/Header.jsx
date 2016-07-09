@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
+import AppBar from 'material-ui/AppBar'
 
-const Header = () => {
+const Header = (props) => {
   return (
-    <h1>BDGT</h1>
+    <AppBar title="BDGT" onLeftIconButtonTouchTap={props.showSidebar} />
   )
+}
+
+Header.propTypes = {
+  showSidebar: PropTypes.function
 }
 
 export default Header

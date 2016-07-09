@@ -1,10 +1,13 @@
 import React, { Component, PropTypes } from 'react'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
+
+import { Grid, Row, Col } from 'react-flexbox-grid'
+
 import Drawer from 'material-ui/Drawer'
-import Header from './Header'
+
 import { observable, action } from 'mobx'
 import { observer } from 'mobx-react'
+
+import Header from './Header'
 import Sidebar from './Sidebar'
 
 @observer
@@ -20,23 +23,30 @@ export default class Main extends Component {
   }
 
   render () {
+    const { history } = this.props
     return (
       <div>
         <Drawer open={this.drawerOpen} docked={false} width={300} onRequestChange={action((open) => this.drawerOpen = open)}>
-          <Sidebar />
+          <Sidebar history={history} />
         </Drawer>
-        <div id='main'>
-          <Header />
-          <FloatingActionButton onMouseUp={this.toggleDrawer}>
-            <NavigationMenu />
-          </FloatingActionButton>
-          {this.props.children}
-        </div>
+        <Grid fluid>
+          <Row>
+            <Col xs={12}>
+              <Header showSidebar={this.toggleDrawer} />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              {this.props.children}
+            </Col>
+          </Row>
+        </Grid>
       </div>
     )
   }
 }
 
 Main.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  history: PropTypes.object
 }

@@ -11,6 +11,7 @@ export default (
   <Route path='/' component={App}>
     <IndexRoute component={Login} />
     <Route path='/periods' component={Main}>
+      <IndexRoute component={BudgetPeriod} />
       <Route path='/periods/:periodName' component={BudgetPeriod} />
     </Route>
     <Route path='/new-period' component={AddPeriod} />

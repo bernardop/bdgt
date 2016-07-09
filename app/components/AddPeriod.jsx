@@ -75,19 +75,19 @@ class AddPeriod extends Component {
     const calendarSize = 375
     return (
       <Grid>
-        <Row end="xs">
+        <Row end='xs'>
           <Col xsOffset={1} xs={10}>
             <FloatingActionButton onClick={this.handleCloseButtonClick}>
               <NavigationClose />
             </FloatingActionButton>
           </Col>
         </Row>
-        <Row start="xs">
+        <Row start='xs'>
           <Col xsOffset={1} xs={10}>
             <h2>Create a new period</h2>
           </Col>
         </Row>
-        <Row around="xs" center="xs">
+        <Row around='xs' center='xs'>
           <Col xs={12} md={6}>
             <h3 className='add-period-label'>Start date</h3>
             <div className='calendar-container'>
@@ -107,9 +107,9 @@ class AddPeriod extends Component {
             </div>
           </Col>
         </Row>
-        <Row center="xs">
+        <Row center='xs'>
           <Col xs={12}>
-            <RaisedButton label="Create" primary={true} disabled={this.addButtonStatus} className='btn-add-period'
+            <RaisedButton label='Create' primary={true} disabled={this.addButtonStatus} className='btn-add-period'
               onClick={this.handleCreatePeriod} />
           </Col>
         </Row>

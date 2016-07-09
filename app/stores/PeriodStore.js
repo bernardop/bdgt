@@ -43,6 +43,20 @@ export default class PeriodStore {
     return this.periods.push(new Period(this, startDate.replace(regexp, '/'), endDate.replace(regexp, '/')))
   }
 
+  @computed get mostRecentPeriod() {
+    if (this.periods.length === 0) {
+      return {}
+    }
+
+    return this.periods.reduce((mostRecent, current) => {
+      if (!mostRecent.endDate) {
+        return current
+      }
+
+      return (current.endDate.isSameOrAfter(mostRecent.endDate)) ? current : mostRecent
+    }, {})
+  }
+
   @computed get periodsByYear() {
     if (this.periods.length === 0) {
       return {}
