@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react'
+import { withRouter } from 'react-router'
+
 import { Grid, Col, Row } from 'react-flexbox-grid/lib/index'
 import RaisedButton from 'material-ui/RaisedButton'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
@@ -32,11 +34,11 @@ class AddPeriod extends Component {
     this.props.stores.periodStore.addPeriod(this.sDateValue.format(dFormat), this.eDateValue.format(dFormat))
     this.sDateValue = false
     this.eDateValue = false
-    this.props.history.push('/periods')
+    this.props.router.push('/periods')
   }
 
   handleCloseButtonClick = () => {
-    this.props.history.push('/periods')
+    this.props.router.push('/periods')
   }
 
   @computed get eDateDisabledDays () {
@@ -122,7 +124,7 @@ AddPeriod.propTypes = {
   stores: PropTypes.shape({
     periodStore: PropTypes.instanceOf(PeriodStore)
   }),
-  history: PropTypes.object
+  router: PropTypes.object
 }
 
-export default AddPeriod
+export default withRouter(AddPeriod)

@@ -62,14 +62,16 @@ export default class PeriodStore {
       return {}
     }
 
-    const years = this.periods.reduce((memo, current) => {
-      const year = current.endDate.year()
-      if (!memo.hasOwnProperty(year)) {
-        memo[year] = []
-      }
-      memo[year].push(current)
-      return memo
-    }, {})
+    const years = this.periods.sort((p1, p2) => {
+        return p2.endDate - p1.endDate
+      }).reduce((memo, current) => {
+        const year = current.endDate.year()
+        if (!memo.hasOwnProperty(year)) {
+          memo[year] = []
+        }
+        memo[year].push(current)
+        return memo
+      }, {})
 
     return years
   }

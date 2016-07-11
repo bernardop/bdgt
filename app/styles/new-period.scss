@@ -1,0 +1,17 @@
+/* New Period */
+.add-period-label {
+  width: 100%;
+  text-align: center;
+}
+
+.calendar-container {
+  display: flex;
+
+  .calendar {
+    margin: auto;
+  }
+}
+
+.btn-add-period {
+  margin-top: 20px;
+}

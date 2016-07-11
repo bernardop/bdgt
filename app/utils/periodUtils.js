@@ -17,4 +17,8 @@ const dateToMoment = (dateStr) => {
   return moment(dateStr, formatToUse)
 }
 
-export { setPeriodName, dateToMoment }
+const compareDesc = (a, b) => {
+  return b - a
+}
+
+export { setPeriodName, dateToMoment, compareDesc }

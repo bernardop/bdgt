@@ -24,6 +24,7 @@ export default class Main extends Component {
 
   render () {
     const { history } = this.props
+    
     return (
       <div>
         <Drawer open={this.drawerOpen} docked={false} width={300} onRequestChange={action((open) => this.drawerOpen = open)}>

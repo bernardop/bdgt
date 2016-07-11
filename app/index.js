@@ -13,7 +13,7 @@ import PeriodStore from './stores/PeriodStore'
 
 import './styles/index.scss'
 
-injectTapEventPlugin();
+injectTapEventPlugin()
 
 mobxStrictMode(true)
 

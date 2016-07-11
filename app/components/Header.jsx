@@ -8,7 +8,7 @@ const Header = (props) => {
 }
 
 Header.propTypes = {
-  showSidebar: PropTypes.function
+  showSidebar: PropTypes.func
 }
 
 export default Header
