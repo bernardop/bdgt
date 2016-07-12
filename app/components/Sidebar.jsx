@@ -29,6 +29,30 @@ class Sidebar extends Component {
     this.props.router.push(path)
   }
 
+  renderPeriodsList = () => {
+    const { periodStore } = this.props.stores
+    if (Object.keys(periodStore.periodsByYear).length > 0) {
+      return (
+        <div>
+          <Subheader>Periods</Subheader>
+          <List>
+            {Object.keys(periodStore.periodsByYear).sort(compareDesc).map((year, index) => {
+              return (
+                  <ListItem key={year} primaryText={year} primaryTogglesNestedList={true}
+                    nestedItems={this.renderNestedPeriods(periodStore.periodsByYear[year])}
+                    initiallyOpen={index === 0} />
+              )
+            })}
+          </List>
+        </div>
+      )
+    } else {
+      return (
+        <div className='sidebar-no-periods-message'>Click on <strong>NEW PERIOD</strong> to create your first one</div>
+      )
+    }
+  }
+
   renderNestedPeriods = (periods) => {
     return periods.map((period) => {
       return <ListItem key={period.id} primaryText={period.displayName}
@@ -37,7 +61,6 @@ class Sidebar extends Component {
   }
 
   render () {
-    const { periodStore } = this.props.stores
     return (
       <div>
         <Grid fluid>
@@ -48,16 +71,7 @@ class Sidebar extends Component {
             </Col>
           </Row>
         </Grid>
-        <Subheader>Periods</Subheader>
-        <List>
-          {Object.keys(periodStore.periodsByYear).sort(compareDesc).map((year, index) => {
-            return (
-                <ListItem key={year} primaryText={year} primaryTogglesNestedList={true}
-                  nestedItems={this.renderNestedPeriods(periodStore.periodsByYear[year])}
-                  initiallyOpen={index === 0} />
-            )
-          })}
-        </List>
+        {this.renderPeriodsList()}
       </div>
     )
   }
