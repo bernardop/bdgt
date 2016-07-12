@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react'
-import { observer } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import { PeriodStore } from '../stores/PeriodStore'
 
-@observer(['stores'])
+@inject('stores')
+@observer
 class BudgetPeriod extends Component {
   render () {
     const { periodStore } = this.props.stores

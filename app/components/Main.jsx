@@ -24,18 +24,14 @@ export default class Main extends Component {
 
   render () {
     const { history } = this.props
-    
+
     return (
       <div>
-        <Drawer open={this.drawerOpen} docked={false} width={300} onRequestChange={action((open) => this.drawerOpen = open)}>
-          <Sidebar history={history} />
+        <Drawer open={this.drawerOpen} docked={false} width={250} onRequestChange={action((open) => this.drawerOpen = open)}>
+          <Sidebar history={history} hideSidebar={this.toggleDrawer} />
         </Drawer>
+        <Header showSidebar={this.toggleDrawer} />
         <Grid fluid>
-          <Row>
-            <Col xs={12}>
-              <Header showSidebar={this.toggleDrawer} />
-            </Col>
-          </Row>
           <Row>
             <Col xs={12}>
               {this.props.children}

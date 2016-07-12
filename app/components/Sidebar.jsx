@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { observer } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import { withRouter } from 'react-router'
 
 import { Grid, Row, Col } from 'react-flexbox-grid'
@@ -12,7 +12,8 @@ import Subheader from 'material-ui/Subheader'
 import PeriodStore from '../stores/PeriodStore'
 import { compareDesc } from '../utils/periodUtils'
 
-@observer(['stores'])
+@inject('stores')
+@observer
 class Sidebar extends Component {
   constructor (props) {
     super(props)
@@ -22,9 +23,16 @@ class Sidebar extends Component {
     this.props.router.push('/new-period')
   }
 
+  handlePeriodClick = (periodSlug) => {
+    this.props.hideSidebar()
+    const path = `/periods/${periodSlug}`
+    this.props.router.push(path)
+  }
+
   renderNestedPeriods = (periods) => {
     return periods.map((period) => {
-      return <ListItem key={period.id} primaryText={period.displayName} />
+      return <ListItem key={period.id} primaryText={period.displayName}
+        onClick={() => this.handlePeriodClick(period.displayName)} />
     })
   }
 
@@ -59,7 +67,8 @@ Sidebar.propTypes = {
   stores: PropTypes.shape({
     periodStore: PropTypes.instanceOf(PeriodStore)
   }),
-  router: PropTypes.object
+  router: PropTypes.object,
+  hideSidebar: PropTypes.func
 }
 
 export default withRouter(Sidebar)

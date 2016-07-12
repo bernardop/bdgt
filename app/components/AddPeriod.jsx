@@ -7,13 +7,14 @@ import FloatingActionButton from 'material-ui/FloatingActionButton'
 import NavigationClose from 'material-ui/svg-icons/navigation/close'
 import InfiniteCalendar from 'react-infinite-calendar'
 import { observable, action, computed } from 'mobx'
-import { observer } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import moment from 'moment'
 import PeriodStore from '../stores/PeriodStore'
 
 import 'react-infinite-calendar/styles.css'
 
-@observer(['stores'])
+@inject('stores')
+@observer
 class AddPeriod extends Component {
   @observable sDateValue
   @observable eDateValue
