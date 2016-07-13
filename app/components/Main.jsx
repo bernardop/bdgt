@@ -5,11 +5,13 @@ import { Grid, Row, Col } from 'react-flexbox-grid'
 import Drawer from 'material-ui/Drawer'
 
 import { observable, action } from 'mobx'
-import { observer } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 
 import Header from './Header'
 import Sidebar from './Sidebar'
+import PeriodStore from '../stores/PeriodStore'
 
+@inject('stores')
 @observer
 export default class Main extends Component {
   @observable drawerOpen = false
@@ -27,7 +29,7 @@ export default class Main extends Component {
 
     return (
       <div>
-        <Drawer open={this.drawerOpen} docked={false} width={250} onRequestChange={action((open) => this.drawerOpen = open)}>
+        <Drawer open={this.drawerOpen} docked={false} width={275} onRequestChange={action((open) => this.drawerOpen = open)}>
           <Sidebar history={history} hideSidebar={this.toggleDrawer} />
         </Drawer>
         <Header showSidebar={this.toggleDrawer} />
@@ -45,5 +47,8 @@ export default class Main extends Component {
 
 Main.propTypes = {
   children: PropTypes.node,
-  history: PropTypes.object
+  history: PropTypes.object,
+  stores: PropTypes.shape({
+    periodStore: PropTypes.instanceOf(PeriodStore)
+  })
 }

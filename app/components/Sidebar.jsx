@@ -6,8 +6,11 @@ import { Grid, Row, Col } from 'react-flexbox-grid'
 
 import RaisedButton from 'material-ui/RaisedButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
+import DateRange from 'material-ui/svg-icons/action/date-range'
+import Today from 'material-ui/svg-icons/action/today'
 import { List, ListItem } from 'material-ui/List'
 import Subheader from 'material-ui/Subheader'
+import Divider from 'material-ui/Divider'
 
 import PeriodStore from '../stores/PeriodStore'
 import { compareDesc } from '../utils/periodUtils'
@@ -25,7 +28,7 @@ class Sidebar extends Component {
 
   handlePeriodClick = (periodSlug) => {
     this.props.hideSidebar()
-    const path = `/periods/${periodSlug}`
+    const path = `/periods/${periodSlug.toLowerCase()}`
     this.props.router.push(path)
   }
 
@@ -34,13 +37,14 @@ class Sidebar extends Component {
     if (Object.keys(periodStore.periodsByYear).length > 0) {
       return (
         <div>
+          <Divider />
           <Subheader>Periods</Subheader>
           <List>
             {Object.keys(periodStore.periodsByYear).sort(compareDesc).map((year, index) => {
               return (
-                  <ListItem key={year} primaryText={year} primaryTogglesNestedList={true}
-                    nestedItems={this.renderNestedPeriods(periodStore.periodsByYear[year])}
-                    initiallyOpen={index === 0} />
+                <ListItem key={year} primaryText={year} primaryTogglesNestedList={true}
+                  nestedItems={this.renderNestedPeriods(periodStore.periodsByYear[year])}
+                  initiallyOpen={index === 0} leftIcon={<DateRange />} />
               )
             })}
           </List>
@@ -48,7 +52,7 @@ class Sidebar extends Component {
       )
     } else {
       return (
-        <div className='sidebar-no-periods-message'>Click on <strong>NEW PERIOD</strong> to create your first one</div>
+        <div className='sidebar-no-periods-message'>Click on <strong>NEW PERIOD</strong> to create your first period</div>
       )
     }
   }
@@ -56,7 +60,8 @@ class Sidebar extends Component {
   renderNestedPeriods = (periods) => {
     return periods.map((period) => {
       return <ListItem key={period.id} primaryText={period.displayName}
-        onClick={() => this.handlePeriodClick(period.displayName)} />
+        onClick={() => this.handlePeriodClick(period.displayName)}
+        leftIcon={<Today />} />
     })
   }
 

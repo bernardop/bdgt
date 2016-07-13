@@ -2,6 +2,7 @@ import { observable, action, computed } from 'mobx'
 import uuid from 'uuid'
 import moment from 'moment'
 import { DateFormats } from '../utils/constants'
+import firebaseApp from '../data/firebase'
 
 class Period {
   store
@@ -40,7 +41,28 @@ export default class PeriodStore {
 
   @action addPeriod = (startDate, endDate) => {
     const regexp = /[\.-]/g
-    return this.periods.push(new Period(this, startDate.replace(regexp, '/'), endDate.replace(regexp, '/')))
+    const newPeriod = new Period(this, startDate.replace(regexp, '/'), endDate.replace(regexp, '/'))
+    const promise = new Promise((resolve, reject) => {
+      var periodsRef = firebaseApp.database().ref().child('periods').push()
+      periodsRef.update({
+        startDate: newPeriod.startDate.toDate(),
+        endDate: newPeriod.endDate.toDate(),
+        budgetItems: []
+      }).then(action(() => {
+        this.periods.push(newPeriod)
+        resolve()
+      })).catch(() => {
+        reject()
+      })
+    })
+
+    return promise
+  }
+
+  @action testFirebase = () => {
+    firebaseApp.database().ref('/periods').once('value').then((snapshot) => {
+      console.log('firebase data', snapshot.val())
+    })
   }
 
   @computed get mostRecentPeriod() {
