@@ -1,5 +1,4 @@
 import { observable, action, computed } from 'mobx'
-import uuid from 'uuid'
 import moment from 'moment'
 import { DateFormats } from '../utils/constants'
 import firebaseApp from '../data/firebase'
@@ -11,11 +10,11 @@ class Period {
   @observable endDate
   @observable budgetItems
 
-  constructor (store, startDate, endDate) {
-    this.id = uuid.v4()
+  constructor (store, id, startDate, endDate, dateFormat) {
+    this.id = id
     this.store = store
-    this.startDate = moment(startDate, DateFormats.SLASH)
-    this.endDate = moment(endDate, DateFormats.SLASH)
+    this.startDate = moment(startDate, dateFormat || DateFormats.SLASH)
+    this.endDate = moment(endDate, dateFormat || DateFormats.SLASH)
     this.budgetItems = []
   }
 
@@ -39,11 +38,24 @@ class Period {
 export default class PeriodStore {
   @observable periods = []
 
+  constructor () {
+    this.initializeStore()
+  }
+
+  @action initializeStore = () => {
+    firebaseApp.database().ref('/periods').once('value').then(action((periods) => {
+      const periodsVal = periods.val()
+      this.periods = Object.keys(periodsVal).map((key) => {
+        return new Period(this, key, periodsVal[key].startDate, periodsVal[key].endDate, moment.ISO_8601)
+      })
+    }))
+  }
+
   @action addPeriod = (startDate, endDate) => {
     const regexp = /[\.-]/g
-    const newPeriod = new Period(this, startDate.replace(regexp, '/'), endDate.replace(regexp, '/'))
+    const periodsRef = firebaseApp.database().ref().child('periods').push()
+    const newPeriod = new Period(this, periodsRef.key, startDate.replace(regexp, '/'), endDate.replace(regexp, '/'))
     const promise = new Promise((resolve, reject) => {
-      var periodsRef = firebaseApp.database().ref().child('periods').push()
       periodsRef.update({
         startDate: newPeriod.startDate.toDate(),
         endDate: newPeriod.endDate.toDate(),
@@ -57,12 +69,6 @@ export default class PeriodStore {
     })
 
     return promise
-  }
-
-  @action testFirebase = () => {
-    firebaseApp.database().ref('/periods').once('value').then((snapshot) => {
-      console.log('firebase data', snapshot.val())
-    })
   }
 
   @computed get mostRecentPeriod() {

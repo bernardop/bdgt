@@ -5,4 +5,4 @@ build/*
 tsd.json
 typings/*
 .tags*
-config/*
+app/config/*
