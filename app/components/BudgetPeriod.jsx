@@ -7,9 +7,9 @@ import { PeriodStore } from '../stores/PeriodStore'
 class BudgetPeriod extends Component {
   render () {
     const { periodStore } = this.props.stores
-    const periodName = this.props.params.periodName || periodStore.mostRecentPeriod.displayName
+    const { periodYear, periodName } = this.props.params
     return (
-      <div>{periodName}</div>
+      <div>{periodYear || periodStore.mostRecentPeriod.year} - {periodName || periodStore.mostRecentPeriod.displayName}</div>
     )
   }
 }

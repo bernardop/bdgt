@@ -12,7 +12,7 @@ export default (
     <IndexRoute component={Login} />
     <Route path='/periods' component={Main}>
       <IndexRoute component={BudgetPeriod} />
-      <Route path='/periods/:periodName' component={BudgetPeriod} />
+      <Route path='/periods/:periodYear/:periodName' component={BudgetPeriod} />
     </Route>
     <Route path='/new-period' component={AddPeriod} />
   </Route>

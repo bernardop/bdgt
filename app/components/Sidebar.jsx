@@ -26,9 +26,9 @@ class Sidebar extends Component {
     this.props.router.push('/new-period')
   }
 
-  handlePeriodClick = (periodSlug) => {
+  handlePeriodClick = ({year, displayName}) => {
     this.props.hideSidebar()
-    const path = `/periods/${periodSlug.toLowerCase()}`
+    const path = `/periods/${year}/${displayName.toLowerCase()}`
     this.props.router.push(path)
   }
 
@@ -60,7 +60,7 @@ class Sidebar extends Component {
   renderNestedPeriods = (periods) => {
     return periods.map((period) => {
       return <ListItem key={period.id} primaryText={period.displayName}
-        onClick={() => this.handlePeriodClick(period.displayName)}
+        onClick={() => this.handlePeriodClick(period)}
         leftIcon={<Today />} />
     })
   }

@@ -21,13 +21,12 @@ class Period {
   @computed get displayName() {
     const startMonth = moment.monthsShort(this.startDate.month())
     const endMonth = moment.monthsShort(this.endDate.month())
-    const endYear = this.endDate.year()
 
     if (startMonth === endMonth) {
-      return `${startMonth}-${endYear}`
+      return `${startMonth}`
     }
 
-    return `${startMonth}-${endMonth}-${endYear}`
+    return `${startMonth}-${endMonth}`
   }
 
   @computed get year() {
