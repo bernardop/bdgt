@@ -1,26 +1,50 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
+import { withRouter } from 'react-router'
 import { Grid, Col, Row } from 'react-flexbox-grid'
 import Textfield from 'material-ui/Textfield'
-import { Card, CardHeader } from 'material-ui/Card'
+import { Card } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
+import { observer } from 'mobx-react'
+import { observable, action } from 'mobx'
+import { login } from '../firebase/auth'
 
-const cardStyle = {
-  padding: 30
-}
+@observer
+class Login extends Component {
+  @observable email = ''
+  @observable password = ''
 
-export default class Login extends Component {
+  constructor (props) {
+    super(props)
+  }
+
+  @action handleEmailChange = (event) => {
+    this.email = event.target.value
+  }
+
+  @action handlePasswordChange = (event) => {
+    this.password = event.target.value
+  }
+
+  @action handleLogin = () => {
+    login(this.email, this.password).then(() => {
+      this.props.router.push('/periods')
+    })
+  }
+
   render () {
     return (
       <Grid className='login-container'>
         <Row center='xs' middle='xs' className='login-row'>
           <Col xs={10} md={6}>
-            <Card containerStyle={cardStyle}>
-              <Textfield floatingLabelText='Email' />
+            <Card containerStyle={{padding: 30}}>
+              <Textfield floatingLabelText='Email' value={this.email}
+                onChange={this.handleEmailChange} />
               <br />
-              <Textfield floatingLabelText='Password' type='password' />
+              <Textfield floatingLabelText='Password' type='password'
+                value={this.password} onChange={this.handlePasswordChange}/>
               <br />
               <br />
-              <RaisedButton label='Login' primary={true} />
+              <RaisedButton label='Login' primary={true} onClick={this.handleLogin}/>
             </Card>
           </Col>
         </Row>
@@ -28,3 +52,9 @@ export default class Login extends Component {
     )
   }
 }
+
+Login.propTypes = {
+  router: PropTypes.object
+}
+
+export default withRouter(Login)

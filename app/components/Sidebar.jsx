@@ -23,7 +23,7 @@ class Sidebar extends Component {
   }
 
   handleNewPeriodClick = () => {
-    this.props.router.push('/new-period')
+    this.props.router.push('/periods/new')
   }
 
   handlePeriodClick = ({year, displayName}) => {
