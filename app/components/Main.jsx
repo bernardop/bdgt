@@ -10,15 +10,21 @@ import { inject, observer } from 'mobx-react'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import PeriodStore from '../stores/PeriodStore'
-import { logout } from '../firebase/auth'
+import firebaseApp, { logout } from '../firebase/auth'
 
 @inject('stores')
 @observer
 class Main extends Component {
-  @observable drawerOpen = false
+  @observable drawerOpen
 
   constructor (props) {
     super(props)
+
+    this.initialize()
+  }
+
+  @action initialize = () => {
+    this.drawerOpen = false
   }
 
   @action toggleDrawer = () => {
@@ -28,6 +34,23 @@ class Main extends Component {
   handleLogout = () => {
     logout().then(() => {
       this.props.router.push('/login')
+    })
+  }
+
+  componentWillMount = () => {
+    this.authListener();
+  }
+
+  componentWillUnMount = () => {
+    this.unsubscribe && this.unsubscribe()
+    this.authListener = undefined
+  }
+
+  authListener = () => {
+    this.unsubscribe = firebaseApp.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        this.props.router.push('/login')
+      }
     })
   }
 
