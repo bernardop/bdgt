@@ -12,7 +12,7 @@ import { observable, action, computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import moment from 'moment'
 import PeriodStore from '../stores/PeriodStore'
-import firebaseApp from '../firebase/auth'
+import firebaseApp from '../firebase/firebase'
 
 import 'react-infinite-calendar/styles.css'
 
@@ -91,11 +91,11 @@ class AddPeriod extends Component {
     return this.showLoadingBar ? <LinearProgress mode='indeterminate' /> : null
   }
 
-  componentWillMount = () => {
+  componentWillMount () {
     this.authListener();
   }
 
-  componentWillUnMount = () => {
+  componentWillUnMount () {
     this.unsubscribe && this.unsubscribe()
     this.authListener = undefined
   }

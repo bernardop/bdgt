@@ -6,6 +6,7 @@ import { Card } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
+import firebaseApp from '../firebase/firebase'
 import { login } from '../firebase/auth'
 
 @observer
@@ -28,6 +29,23 @@ class Login extends Component {
   @action handleLogin = () => {
     login(this.email, this.password).then(() => {
       this.props.router.push('/periods')
+    })
+  }
+
+  componentWillMount () {
+    this.authListener();
+  }
+
+  componentWillUnMount () {
+    this.unsubscribe && this.unsubscribe()
+    this.authListener = undefined
+  }
+
+  authListener = () => {
+    this.unsubscribe = firebaseApp.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.props.router.push('/periods')
+      }
     })
   }
 

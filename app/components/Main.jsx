@@ -10,7 +10,8 @@ import { inject, observer } from 'mobx-react'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import PeriodStore from '../stores/PeriodStore'
-import firebaseApp, { logout } from '../firebase/auth'
+import firebaseApp from '../firebase/firebase'
+import { logout } from '../firebase/auth'
 
 @inject('stores')
 @observer
@@ -37,11 +38,11 @@ class Main extends Component {
     })
   }
 
-  componentWillMount = () => {
+  componentWillMount () {
     this.authListener();
   }
 
-  componentWillUnMount = () => {
+  componentWillUnMount () {
     this.unsubscribe && this.unsubscribe()
     this.authListener = undefined
   }

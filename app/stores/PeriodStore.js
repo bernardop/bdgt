@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx'
 import moment from 'moment'
 import { DateFormats } from '../utils/constants'
-import firebaseApp from '../firebase/auth'
+import firebaseApp from '../firebase/firebase'
 
 class Period {
   store

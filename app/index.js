@@ -8,13 +8,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import muiTheme from './utils/muiConfig'
 
 import routes from './routes'
-import { initializeFirebase } from './firebase/auth'
 import PeriodStore from './stores/PeriodStore'
 
 import './styles/index.scss'
 
 injectTapEventPlugin()
-initializeFirebase()
 mobxStrictMode(true)
 
 const stores = {
