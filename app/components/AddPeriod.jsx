@@ -12,7 +12,7 @@ import { observable, action, computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import moment from 'moment'
 import PeriodStore from '../stores/PeriodStore'
-import firebaseApp from '../firebase/firebase'
+import requireAuth from './requireAuth'
 
 import 'react-infinite-calendar/styles.css'
 
@@ -91,23 +91,6 @@ class AddPeriod extends Component {
     return this.showLoadingBar ? <LinearProgress mode='indeterminate' /> : null
   }
 
-  componentWillMount () {
-    this.authListener();
-  }
-
-  componentWillUnMount () {
-    this.unsubscribe && this.unsubscribe()
-    this.authListener = undefined
-  }
-
-  authListener = () => {
-    this.unsubscribe = firebaseApp.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        this.props.router.push('/login')
-      }
-    })
-  }
-
   render () {
     const calendarSize = 375
     return (
@@ -169,4 +152,4 @@ AddPeriod.propTypes = {
   router: PropTypes.object
 }
 
-export default withRouter(AddPeriod)
+export default withRouter(requireAuth(AddPeriod))

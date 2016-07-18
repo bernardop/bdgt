@@ -10,7 +10,7 @@ import { inject, observer } from 'mobx-react'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import PeriodStore from '../stores/PeriodStore'
-import firebaseApp from '../firebase/firebase'
+import requireAuth from './requireAuth'
 import { logout } from '../firebase/auth'
 
 @inject('stores')
@@ -35,23 +35,6 @@ class Main extends Component {
   handleLogout = () => {
     logout().then(() => {
       this.props.router.push('/login')
-    })
-  }
-
-  componentWillMount () {
-    this.authListener();
-  }
-
-  componentWillUnMount () {
-    this.unsubscribe && this.unsubscribe()
-    this.authListener = undefined
-  }
-
-  authListener = () => {
-    this.unsubscribe = firebaseApp.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        this.props.router.push('/login')
-      }
     })
   }
 
@@ -85,4 +68,4 @@ Main.propTypes = {
   router: PropTypes.object
 }
 
-export default withRouter(Main)
+export default withRouter(requireAuth(Main))
