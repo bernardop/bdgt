@@ -8,6 +8,8 @@ import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
 import firebaseApp from '../firebase/firebase'
 import { login } from '../firebase/auth'
+import checkAuth from './checkAuth'
+import { UserAuthStatus } from '../utils/constants'
 
 @observer
 class Login extends Component {
@@ -75,4 +77,4 @@ Login.propTypes = {
   router: PropTypes.object
 }
 
-export default withRouter(Login)
+export default withRouter(checkAuth(Login, UserAuthStatus.IS_AUTHENTICATED))

@@ -10,8 +10,9 @@ import { inject, observer } from 'mobx-react'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import PeriodStore from '../stores/PeriodStore'
-import requireAuth from './requireAuth'
+import checkAuth from './checkAuth'
 import { logout } from '../firebase/auth'
+import { UserAuthStatus } from '../utils/constants'
 
 @inject('stores')
 @observer
@@ -68,4 +69,4 @@ Main.propTypes = {
   router: PropTypes.object
 }
 
-export default withRouter(requireAuth(Main))
+export default withRouter(checkAuth(Main, UserAuthStatus.SHOULD_BE_AUTHENTICATED))

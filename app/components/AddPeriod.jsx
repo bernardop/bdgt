@@ -12,7 +12,8 @@ import { observable, action, computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import moment from 'moment'
 import PeriodStore from '../stores/PeriodStore'
-import requireAuth from './requireAuth'
+import checkAuth from './checkAuth'
+import { UserAuthStatus } from '../utils/constants'
 
 import 'react-infinite-calendar/styles.css'
 
@@ -152,4 +153,4 @@ AddPeriod.propTypes = {
   router: PropTypes.object
 }
 
-export default withRouter(requireAuth(AddPeriod))
+export default withRouter(checkAuth(AddPeriod, UserAuthStatus.SHOULD_BE_AUTHENTICATED))
