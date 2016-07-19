@@ -36,9 +36,19 @@ class Period {
 
 export default class PeriodStore {
   @observable periods = []
+  @observable currentPeriod
 
   constructor () {
     this.initializeStore()
+  }
+
+  @action setCurrentPeriod = (periodId) => {
+    const match = this.periods.filter((period) => period.id === periodId)
+    if (match.length > 0) {
+      this.currentPeriod = match[0]
+    } else {
+      this.currentPeriod = {}
+    }
   }
 
   @action initializeStore = () => {

@@ -28,7 +28,7 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-1": "^6.5.0",
     "css-loader": "^0.23.1",
-    "eslint": "^3.1.0",
+    "eslint": "^3.1.1",
     "eslint-plugin-react": "^5.2.2",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
@@ -58,7 +58,7 @@
     "react-dom": "^15.2.1",
     "react-flexbox-grid": "^0.9.6",
     "react-infinite-calendar": "^1.1.17",
-    "react-router": "^2.5.2",
+    "react-router": "^2.6.0",
     "react-tap-event-plugin": "^1.0.0",
     "uuid": "^2.0.2"
   },

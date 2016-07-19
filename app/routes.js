@@ -10,10 +10,10 @@ import Login from './components/Login'
 export default (
   <Route path='/' component={App}>
     <Route path='/login' component={Login} />
+    <Route path='/periods/new' component={AddPeriod} />
     <Route path='/periods' component={Main}>
       <IndexRoute component={BudgetPeriod} />
-      <Route path='/periods/:periodYear/:periodName' component={BudgetPeriod} />
+      <Route path='/periods/:periodId' component={BudgetPeriod} />
     </Route>
-    <Route path='/periods/new' component={AddPeriod} />
   </Route>
 )

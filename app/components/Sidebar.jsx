@@ -26,9 +26,9 @@ class Sidebar extends Component {
     this.props.router.push('/periods/new')
   }
 
-  handlePeriodClick = ({year, displayName}) => {
+  handlePeriodClick = ({id}) => {
     this.props.hideSidebar()
-    const path = `/periods/${year}/${displayName.toLowerCase()}`
+    const path = `/periods/${id}`
     this.props.router.push(path)
   }
 

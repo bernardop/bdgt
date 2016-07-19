@@ -5,11 +5,13 @@ import { PeriodStore } from '../stores/PeriodStore'
 @inject('stores')
 @observer
 class BudgetPeriod extends Component {
+  constructor (props) {
+    super(props)
+  }
+
   render () {
-    const { periodStore } = this.props.stores
-    const { periodYear, periodName } = this.props.params
     return (
-      <div>{periodYear || periodStore.mostRecentPeriod.year} - {periodName || periodStore.mostRecentPeriod.displayName}</div>
+      <div>{this.props.params.periodId ? this.props.params.periodId : this.props.stores.periodStore.mostRecentPeriod.id}</div>
     )
   }
 }
