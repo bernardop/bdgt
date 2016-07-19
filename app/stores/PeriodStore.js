@@ -36,28 +36,23 @@ class Period {
 
 export default class PeriodStore {
   @observable periods = []
-  @observable currentPeriod
+  @observable currentPeriodId
 
   constructor () {
     this.initializeStore()
   }
 
-  @action setCurrentPeriod = (periodId) => {
-    const match = this.periods.filter((period) => period.id === periodId)
-    if (match.length > 0) {
-      this.currentPeriod = match[0]
-    } else {
-      this.currentPeriod = {}
-    }
-  }
-
-  @action initializeStore = () => {
-    firebaseApp.database().ref('/periods').once('value').then(action((periods) => {
+  @action('PeriodStore_initializeStore') initializeStore = () => {
+    firebaseApp.database().ref('/periods').once('value').then(action('firebase_get-periods', (periods) => {
       const periodsVal = periods.val()
       this.periods = Object.keys(periodsVal).map((key) => {
         return new Period(this, key, periodsVal[key].startDate, periodsVal[key].endDate, moment.ISO_8601)
       })
     }))
+  }
+
+  @action setCurrentPeriodId = (periodId) => {
+    this.currentPeriodId = periodId
   }
 
   @action addPeriod = (startDate, endDate) => {
@@ -80,7 +75,19 @@ export default class PeriodStore {
     return promise
   }
 
-  @computed get mostRecentPeriod() {
+  @computed get storeIsReady () {
+    return this.periods.length > 0
+  }
+
+  @computed get currentPeriod () {
+    if (this.currentPeriodId) {
+      return this.periods[this.currentPeriodId]
+    } else {
+      return {}
+    }
+  }
+
+  @computed get mostRecentPeriod () {
     if (this.periods.length === 0) {
       return {}
     }
@@ -94,7 +101,7 @@ export default class PeriodStore {
     }, {})
   }
 
-  @computed get periodsByYear() {
+  @computed get periodsByYear () {
     if (this.periods.length === 0) {
       return {}
     }

@@ -11,7 +11,7 @@ class BudgetPeriod extends Component {
 
   render () {
     return (
-      <div>{this.props.params.periodId ? this.props.params.periodId : this.props.stores.periodStore.mostRecentPeriod.id}</div>
+      <div>{this.props.params.periodId ? this.props.params.periodId : 'none'}</div>
     )
   }
 }
