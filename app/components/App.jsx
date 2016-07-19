@@ -18,7 +18,7 @@ export default class App extends Component {
         </div>
       )
     } else {
-      return <div>'Loading...'</div>
+      return <div>Loading...</div>
     }
   }
 

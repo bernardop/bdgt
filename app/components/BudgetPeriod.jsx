@@ -9,9 +9,20 @@ class BudgetPeriod extends Component {
     super(props)
   }
 
+  renderContent = () => {
+    const { stores, params } = this.props
+    if (stores.periodStore.storeIsReady) {
+      return params.periodId ? stores.periodStore.periods.filter(period => period.id === params.periodId)[0].id : this.props.stores.periodStore.mostRecentPeriod.id
+    } else {
+      return null
+    }
+  }
+
   render () {
     return (
-      <div>{this.props.params.periodId ? this.props.params.periodId : 'none'}</div>
+      <div>
+        {this.renderContent()}
+      </div>
     )
   }
 }

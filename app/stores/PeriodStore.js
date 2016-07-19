@@ -36,7 +36,6 @@ class Period {
 
 export default class PeriodStore {
   @observable periods = []
-  @observable currentPeriodId
 
   constructor () {
     this.initializeStore()
@@ -49,10 +48,6 @@ export default class PeriodStore {
         return new Period(this, key, periodsVal[key].startDate, periodsVal[key].endDate, moment.ISO_8601)
       })
     }))
-  }
-
-  @action setCurrentPeriodId = (periodId) => {
-    this.currentPeriodId = periodId
   }
 
   @action addPeriod = (startDate, endDate) => {
@@ -79,16 +74,8 @@ export default class PeriodStore {
     return this.periods.length > 0
   }
 
-  @computed get currentPeriod () {
-    if (this.currentPeriodId) {
-      return this.periods[this.currentPeriodId]
-    } else {
-      return {}
-    }
-  }
-
   @computed get mostRecentPeriod () {
-    if (this.periods.length === 0) {
+    if (!this.storeIsReady) {
       return {}
     }
 
@@ -102,7 +89,7 @@ export default class PeriodStore {
   }
 
   @computed get periodsByYear () {
-    if (this.periods.length === 0) {
+    if (this.storeIsReady === 0) {
       return {}
     }
 
