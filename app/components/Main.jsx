@@ -22,14 +22,14 @@ class Main extends Component {
   constructor (props) {
     super(props)
 
-    this.initialize()
+    this.setInitialValues()
   }
 
-  @action initialize = () => {
+  @action('Main_setInitialValues') setInitialValues = () => {
     this.drawerOpen = false
   }
 
-  @action toggleDrawer = () => {
+  @action('Main_toggleDrawer') toggleDrawer = () => {
     this.drawerOpen = !this.drawerOpen
   }
 

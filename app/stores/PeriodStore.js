@@ -42,7 +42,7 @@ export default class PeriodStore {
   }
 
   @action('PeriodStore_initializeStore') initializeStore = () => {
-    firebaseApp.database().ref('/periods').once('value').then(action('firebase_get-periods', (periods) => {
+    firebaseApp.database().ref('/periods').once('value').then(action('Firebase_fetch-periods', (periods) => {
       const periodsVal = periods.val()
       this.periods = Object.keys(periodsVal).map((key) => {
         return new Period(this, key, periodsVal[key].startDate, periodsVal[key].endDate, moment.ISO_8601)
@@ -50,7 +50,7 @@ export default class PeriodStore {
     }))
   }
 
-  @action addPeriod = (startDate, endDate) => {
+  @action('PeriodStore_addPeriod') addPeriod = (startDate, endDate) => {
     const regexp = /[\.-]/g
     const periodsRef = firebaseApp.database().ref().child('periods').push()
     const newPeriod = new Period(this, periodsRef.key, startDate.replace(regexp, '/'), endDate.replace(regexp, '/'))
@@ -59,7 +59,7 @@ export default class PeriodStore {
         startDate: newPeriod.startDate.toDate(),
         endDate: newPeriod.endDate.toDate(),
         budgetItems: []
-      }).then(action(() => {
+      }).then(action('Firebase_update-periods-success', () => {
         this.periods.push(newPeriod)
         resolve()
       })).catch(() => {

@@ -20,34 +20,17 @@ class Login extends Component {
     super(props)
   }
 
-  @action handleEmailChange = (event) => {
+  @action('Login_handleEmailChange') handleEmailChange = (event) => {
     this.email = event.target.value
   }
 
-  @action handlePasswordChange = (event) => {
+  @action('Login_handlePasswordChange') handlePasswordChange = (event) => {
     this.password = event.target.value
   }
 
-  @action handleLogin = () => {
+  @action('Login_handleLogin') handleLogin = () => {
     login(this.email, this.password).then(() => {
       this.props.router.push('/periods')
-    })
-  }
-
-  componentWillMount () {
-    this.authListener();
-  }
-
-  componentWillUnMount () {
-    this.unsubscribe && this.unsubscribe()
-    this.authListener = undefined
-  }
-
-  authListener = () => {
-    this.unsubscribe = firebaseApp.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.props.router.push('/periods')
-      }
     })
   }
 

@@ -31,25 +31,26 @@ class AddPeriod extends Component {
     this.setInitialValues(false, false)
   }
 
-  @action setInitialValues = (sDateValue, eDateValue) => {
+  @action('AddPeriod_setInitialValues') setInitialValues = (sDateValue, eDateValue) => {
     this.sDateValue = sDateValue
     this.eDateValue = eDateValue
     this.showNewPeriodError = false
     this.showLoadingBar = false
   }
 
-  @action handleCreatePeriod = () => {
+  @action('AddPeriod_handleCreatePeriod') handleCreatePeriod = () => {
     this.showLoadingBar = true
     const dFormat = 'MM/DD/YYYY'
-    this.props.stores.periodStore.addPeriod(this.sDateValue.format(dFormat), this.eDateValue.format(dFormat)).then(action(() => {
-      this.sDateValue = false
-      this.eDateValue = false
-      this.showLoadingBar = false
-      this.props.router.push('/periods')
-    })).catch(action(() => {
-      this.showLoadingBar = false
-      this.showNewPeriodError = true
-    }))
+    this.props.stores.periodStore.addPeriod(this.sDateValue.format(dFormat), this.eDateValue.format(dFormat))
+      .then(action('PeriodStore_addPeriod-success', () => {
+        this.sDateValue = false
+        this.eDateValue = false
+        this.showLoadingBar = false
+        this.props.router.push('/periods')
+      })).catch(action('PeriodStore_addPeriod-error', () => {
+        this.showLoadingBar = false
+        this.showNewPeriodError = true
+      }))
   }
 
   handleCloseButtonClick = () => {
