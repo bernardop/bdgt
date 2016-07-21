@@ -48,7 +48,7 @@
     "immutable": "^3.8.1",
     "lodash": "^4.13.1",
     "material-ui": "^0.15.2",
-    "mobx": "^2.3.7",
+    "mobx": "^2.4.0",
     "mobx-react": "^3.5.1",
     "mobx-react-devtools": "^4.2.3",
     "moment": "^2.14.1",

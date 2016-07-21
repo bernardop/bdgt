@@ -36,6 +36,7 @@ class Period {
 
 export default class PeriodStore {
   @observable periods = []
+  @observable storeIsSynced = false
 
   constructor () {
     this.initializeStore()
@@ -43,10 +44,13 @@ export default class PeriodStore {
 
   @action('PeriodStore_initializeStore') initializeStore = () => {
     firebaseApp.database().ref('/periods').once('value').then(action('Firebase_fetch-periods', (periods) => {
+      this.storeIsSynced = true
       const periodsVal = periods.val()
-      this.periods = Object.keys(periodsVal).map((key) => {
-        return new Period(this, key, periodsVal[key].startDate, periodsVal[key].endDate, moment.ISO_8601)
-      })
+      if (periodsVal) {
+        this.periods = Object.keys(periodsVal).map((key) => {
+          return new Period(this, key, periodsVal[key].startDate, periodsVal[key].endDate, moment.ISO_8601)
+        })
+      }
     }))
   }
 
@@ -70,12 +74,12 @@ export default class PeriodStore {
     return promise
   }
 
-  @computed get storeIsReady () {
+  @computed get storeHasPeriods () {
     return this.periods.length > 0
   }
 
   @computed get mostRecentPeriod () {
-    if (!this.storeIsReady) {
+    if (!this.storeHasPeriods) {
       return {}
     }
 
@@ -89,7 +93,7 @@ export default class PeriodStore {
   }
 
   @computed get periodsByYear () {
-    if (this.storeIsReady === 0) {
+    if (!this.storeHasPeriods) {
       return {}
     }
 

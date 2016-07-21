@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { observer, inject } from 'mobx-react'
 import DevTools from 'mobx-react-devtools'
 
+import LoadingScreen from './LoadingScreen'
+
 @inject('stores')
 @observer
 export default class App extends Component {
@@ -10,7 +12,7 @@ export default class App extends Component {
   }
 
   renderContent = () => {
-    if (this.props.stores.periodStore.storeIsReady) {
+    if (this.props.stores.periodStore.storeIsSynced) {
       return (
         <div>
           {this.props.children}
@@ -18,7 +20,7 @@ export default class App extends Component {
         </div>
       )
     } else {
-      return <div>Loading...</div>
+      return <LoadingScreen />
     }
   }
 
