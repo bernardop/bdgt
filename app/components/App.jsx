@@ -12,7 +12,7 @@ export default class App extends Component {
   }
 
   renderContent = () => {
-    if (this.props.stores.periodStore.storeIsSynced) {
+    if (this.props.stores.periodStore.storeTriedToSync) {
       return (
         <div>
           {this.props.children}

@@ -35,7 +35,7 @@ class Main extends Component {
 
   handleLogout = () => {
     logout().then(() => {
-      this.props.router.push('/login')
+      this.props.router.push('/')
     })
   }
 

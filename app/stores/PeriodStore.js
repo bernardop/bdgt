@@ -36,21 +36,23 @@ class Period {
 
 class PeriodStore {
   @observable periods = []
-  @observable storeIsSynced = false
+  @observable storeTriedToSync = false
 
   constructor () {
     this.initializeStore()
   }
 
   @action('PeriodStore_initializeStore') initializeStore = () => {
-    firebaseApp.database().ref('/periods').once('value').then(action('Firebase_fetch-periods', (periods) => {
-      this.storeIsSynced = true
+    firebaseApp.database().ref('/periods').once('value').then(action('Firebase_fetch-periods-success', (periods) => {
+      this.storeTriedToSync = true
       const periodsVal = periods.val()
       if (periodsVal) {
         this.periods = Object.keys(periodsVal).map((key) => {
           return new Period(this, key, periodsVal[key].startDate, periodsVal[key].endDate, moment.ISO_8601)
         })
       }
+    })).catch(action('Firebase_fetch-periods-error', () => {
+      this.storeTriedToSync = true
     }))
   }
 

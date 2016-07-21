@@ -21,7 +21,7 @@ export default function checkAuth(WrappedComponent, type) {
     redirectToLoginAuthListener = () => {
       this.unsubscribe = firebaseApp.auth().onAuthStateChanged((user) => {
         if (!user) {
-          this.props.router.push('/login')
+          this.props.router.push('/')
         }
       })
     }

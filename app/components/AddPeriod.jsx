@@ -90,14 +90,18 @@ class AddPeriod extends Component {
   }
 
   renderLoadingBar = () => {
-    return this.showLoadingBar ? <LinearProgress mode='indeterminate' /> : null
+    return
   }
 
   render () {
     const calendarSize = 375
+    const progressBarVisibility = {
+      visibility: this.showLoadingBar ? 'visible' : 'hidden'
+    }
+
     return (
       <div>
-        {this.renderLoadingBar()}
+        <LinearProgress mode='indeterminate' style={progressBarVisibility} />
         <div className='add-period-container'>
           <Grid>
             <Row end='xs'>
