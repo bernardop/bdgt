@@ -4,7 +4,12 @@ class Category {
   @observable name
   @observable type
 
-  constructor () {
-    
+  constructor (name, type) {
+    this.name = name
+    this.type = type
   }
+}
+
+export default class CategoryStore {
+  @observable categories = []
 }

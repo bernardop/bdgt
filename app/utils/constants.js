@@ -1,10 +1,15 @@
+import { Enum } from 'enumify'
+
 export const DateFormats = {
   SLASH: 'MM/DD/YYYY',
   DASH: 'MM-DD-YYYY',
   PERIOD: 'MM.DD.YYYY'
 }
 
-export const UserAuthStatus = {
-  SHOULD_BE_AUTHENTICATED: 0,
-  IS_AUTHENTICATED: 1
-}
+class UserAuthStatus extends Enum {}
+UserAuthStatus.initEnum(['SHOULD_BE_AUTHENTICATED', 'IS_AUTHENTICATED'])
+
+class CategoryType extends Enum {}
+CategoryType.initEnum(['EXPENSE', 'INCOME'])
+
+export { UserAuthStatus, CategoryType }

@@ -34,7 +34,7 @@ class Period {
   }
 }
 
-export default class PeriodStore {
+class PeriodStore {
   @observable periods = []
   @observable storeIsSynced = false
 
@@ -111,3 +111,5 @@ export default class PeriodStore {
     return years
   }
 }
+
+export default PeriodStore

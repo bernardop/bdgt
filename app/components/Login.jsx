@@ -6,30 +6,27 @@ import { Card } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
-import firebaseApp from '../firebase/firebase'
 import { login } from '../firebase/auth'
 import checkAuth from './checkAuth'
 import { UserAuthStatus } from '../utils/constants'
 
 @observer
 class Login extends Component {
-  @observable email = ''
-  @observable password = ''
+  @observable credentials = {
+    email: '',
+    password: ''
+  }
 
   constructor (props) {
     super(props)
   }
 
-  @action('Login_handleEmailChange') handleEmailChange = (event) => {
-    this.email = event.target.value
-  }
-
-  @action('Login_handlePasswordChange') handlePasswordChange = (event) => {
-    this.password = event.target.value
+  @action('Login_handleChange') handleChange = (event) => {
+    this.credentials[event.target.name] = event.target.value
   }
 
   @action('Login_handleLogin') handleLogin = () => {
-    login(this.email, this.password).then(() => {
+    login(this.credentials.email, this.credentials.password).then(() => {
       this.props.router.push('/periods')
     })
   }
@@ -40,11 +37,11 @@ class Login extends Component {
         <Row center='xs' middle='xs' className='login-row'>
           <Col xs={10} md={6}>
             <Card containerStyle={{padding: 30}}>
-              <Textfield floatingLabelText='Email' value={this.email}
-                onChange={this.handleEmailChange} />
+              <Textfield floatingLabelText='Email' name='email' value={this.email}
+                onChange={this.handleChange} />
               <br />
-              <Textfield floatingLabelText='Password' type='password'
-                value={this.password} onChange={this.handlePasswordChange}/>
+              <Textfield floatingLabelText='Password' name='password' type='password'
+                value={this.password} onChange={this.handleChange}/>
               <br />
               <br />
               <RaisedButton label='Login' primary={true} onClick={this.handleLogin}/>
