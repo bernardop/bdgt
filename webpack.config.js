@@ -1,5 +1,6 @@
 var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 var webpack = require('webpack')
 var merge = require('webpack-merge')
 
@@ -53,7 +54,8 @@ var common = {
       title: 'Bdgt',
       template: 'app/index.html',
       inject: 'body'
-    })
+    }),
+    new LodashModuleReplacementPlugin
   ]
 }
 

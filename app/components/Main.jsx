@@ -10,6 +10,7 @@ import { inject, observer } from 'mobx-react'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import PeriodStore from '../stores/PeriodStore'
+import CategoryStore from '../stores/CategoryStore'
 import checkAuth from './checkAuth'
 import { logout } from '../firebase/auth'
 import { UserAuthStatus } from '../utils/constants'
@@ -64,7 +65,8 @@ Main.propTypes = {
   children: PropTypes.node,
   history: PropTypes.object,
   stores: PropTypes.shape({
-    periodStore: PropTypes.instanceOf(PeriodStore)
+    periodStore: PropTypes.instanceOf(PeriodStore),
+    categoryStore: PropTypes.instanceOf(CategoryStore)
   }),
   router: PropTypes.object
 }

@@ -12,6 +12,7 @@ import { observable, action, computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import moment from 'moment'
 import PeriodStore from '../stores/PeriodStore'
+import CategoryStore from '../stores/CategoryStore'
 import checkAuth from './checkAuth'
 import { UserAuthStatus } from '../utils/constants'
 
@@ -89,10 +90,6 @@ class AddPeriod extends Component {
     return result
   }
 
-  renderLoadingBar = () => {
-    return
-  }
-
   render () {
     const calendarSize = 375
     const progressBarVisibility = {
@@ -153,7 +150,8 @@ class AddPeriod extends Component {
 
 AddPeriod.propTypes = {
   stores: PropTypes.shape({
-    periodStore: PropTypes.instanceOf(PeriodStore)
+    periodStore: PropTypes.instanceOf(PeriodStore),
+    categoryStore: PropTypes.instanceOf(CategoryStore)
   }),
   router: PropTypes.object
 }

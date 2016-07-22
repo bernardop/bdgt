@@ -2,14 +2,19 @@ import React, { Component, PropTypes } from 'react'
 import { withRouter } from 'react-router'
 import { Grid, Col, Row } from 'react-flexbox-grid'
 import Textfield from 'material-ui/Textfield'
-import { Card } from 'material-ui/Card'
+import { Card, CardText, CardTitle } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 import LinearProgress from 'material-ui/LinearProgress'
+import { red500 } from 'material-ui/styles/colors'
 import { observer, inject } from 'mobx-react'
 import { observable, action } from 'mobx'
+import _ from 'lodash'
+
 import { login } from '../firebase/auth'
 import checkAuth from './checkAuth'
 import { UserAuthStatus } from '../utils/constants'
+import PeriodStore from '../stores/PeriodStore'
+import CategoryStore from '../stores/CategoryStore'
 
 @inject('stores')
 @observer
@@ -18,6 +23,11 @@ class Login extends Component {
   @observable credentials = {
     email: '',
     password: ''
+  }
+  @observable errors = {
+    email: null,
+    password: null,
+    all: null
   }
 
   constructor (props) {
@@ -30,11 +40,16 @@ class Login extends Component {
 
   @action('Login_handleLogin') handleLogin = () => {
     this.showLoadingBar = true
-    login(this.credentials.email, this.credentials.password).then(() => {
+    _.forOwn(this.errors, (val, key) => this.errors[key] = null)
+    login(this.credentials.email, this.credentials.password).then(action('Login_auth-success', () => {
       this.props.stores.periodStore.initializeStore()
       this.showLoadingBar = false
       this.props.router.push('/periods')
-    })
+    })).catch(action('Login_auth-error', (error) => {
+
+      this.showLoadingBar = false
+      _.assign(this.errors, error)
+    }))
   }
 
   render () {
@@ -49,14 +64,19 @@ class Login extends Component {
           <Row center='xs' middle='xs' className='login-row'>
             <Col xs={10} md={6}>
               <Card containerStyle={{padding: 30}}>
-                <Textfield floatingLabelText='Email' name='email' value={this.email}
-                  onChange={this.handleChange} />
-                <br />
-                <Textfield floatingLabelText='Password' name='password' type='password'
-                  value={this.password} onChange={this.handleChange}/>
-                <br />
-                <br />
-                <RaisedButton label='Login' primary={true} onClick={this.handleLogin}/>
+                <CardTitle title='Login to BDGT' />
+                <CardText>
+                  <Textfield floatingLabelText='Email' floatingLabelFixed={true} name='email' value={this.email}
+                    onChange={this.handleChange} errorText={this.errors.email} errorStyle={{'text-align': 'left'}} />
+                  <br />
+                  <Textfield floatingLabelText='Password' floatingLabelFixed={true} name='password' type='password'
+                    value={this.password} onChange={this.handleChange} errorText={this.errors.password}
+                    errorStyle={{'text-align': 'left'}} />
+                  <br />
+                  <br />
+                  <div className='login-generic-error' style={{color: red500}}>{this.errors.all}</div>
+                  <RaisedButton label='Login' primary={true} onClick={this.handleLogin}/>
+                </CardText>
               </Card>
             </Col>
           </Row>
@@ -68,7 +88,10 @@ class Login extends Component {
 
 Login.propTypes = {
   router: PropTypes.object,
-  stores: PropTypes.object
+  stores: PropTypes.shape({
+    periodStore: PropTypes.instanceOf(PeriodStore),
+    categoryStore: PropTypes.instanceOf(CategoryStore)
+  })
 }
 
 export default withRouter(checkAuth(Login, UserAuthStatus.IS_AUTHENTICATED))

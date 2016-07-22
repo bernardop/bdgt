@@ -13,6 +13,7 @@ import Subheader from 'material-ui/Subheader'
 import Divider from 'material-ui/Divider'
 
 import PeriodStore from '../stores/PeriodStore'
+import CategoryStore from '../stores/CategoryStore'
 import { compareDesc } from '../utils/periodUtils'
 
 @inject('stores')
@@ -84,7 +85,8 @@ class Sidebar extends Component {
 
 Sidebar.propTypes = {
   stores: PropTypes.shape({
-    periodStore: PropTypes.instanceOf(PeriodStore)
+    periodStore: PropTypes.instanceOf(PeriodStore),
+    categoryStore: PropTypes.instanceOf(CategoryStore)
   }),
   router: PropTypes.object,
   hideSidebar: PropTypes.func
