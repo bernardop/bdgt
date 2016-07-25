@@ -5,10 +5,10 @@ import { observer, inject } from 'mobx-react'
 import LinearProgress from 'material-ui/LinearProgress'
 import { Grid, Row, Col } from 'react-flexbox-grid'
 
-import PeriodStore from '../stores/PeriodStore'
-import CategoryStore from '../stores/CategoryStore'
+import { StoresPropTypesShape } from '../utils/constants'
 import checkAuth from './checkAuth'
 import { UserAuthStatus } from '../utils/constants'
+import BdgtCloseButton from './BdgtCloseButton'
 
 @inject('stores')
 @observer
@@ -23,6 +23,10 @@ class AddCategory extends Component {
     super(props)
   }
 
+  handleCloseButtonClick = () => {
+    this.props.router.push('/periods')
+  }
+
   render () {
     const progressBarVisibility = {
       visibility: this.showLoadingBar ? 'visible' : 'hidden'
@@ -32,9 +36,10 @@ class AddCategory extends Component {
       <div>
         <LinearProgress mode='indeterminate' style={progressBarVisibility} />
         <Grid>
+          <BdgtCloseButton position='end' handleClick={this.handleCloseButtonClick} />
           <Row>
             <Col>
-              
+
             </Col>
           </Row>
         </Grid>
@@ -44,10 +49,8 @@ class AddCategory extends Component {
 }
 
 AddCategory.propTypes = {
-  stores: PropTypes.shape({
-    periodStore: PropTypes.instanceOf(PeriodStore),
-    categoryStore: PropTypes.instanceOf(CategoryStore)
-  })
+  stores: PropTypes.shape(StoresPropTypesShape),
+  router: PropTypes.object
 }
 
 export default withRouter(checkAuth(AddCategory, UserAuthStatus.SHOULD_BE_AUTHENTICATED))

@@ -12,8 +12,7 @@ import { List, ListItem } from 'material-ui/List'
 import Subheader from 'material-ui/Subheader'
 import Divider from 'material-ui/Divider'
 
-import PeriodStore from '../stores/PeriodStore'
-import CategoryStore from '../stores/CategoryStore'
+import { StoresPropTypesShape } from '../utils/constants'
 import { compareDesc } from '../utils/periodUtils'
 
 @inject('stores')
@@ -84,10 +83,7 @@ class Sidebar extends Component {
 }
 
 Sidebar.propTypes = {
-  stores: PropTypes.shape({
-    periodStore: PropTypes.instanceOf(PeriodStore),
-    categoryStore: PropTypes.instanceOf(CategoryStore)
-  }),
+  stores: PropTypes.shape(StoresPropTypesShape),
   router: PropTypes.object,
   hideSidebar: PropTypes.func
 }

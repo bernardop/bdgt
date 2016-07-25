@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { inject, observer } from 'mobx-react'
 
-import PeriodStore from '../stores/PeriodStore'
-import CategoryStore from '../stores/CategoryStore'
+import { StoresPropTypesShape } from '../utils/constants'
 
 @inject('stores')
 @observer
@@ -27,10 +26,7 @@ class BudgetPeriod extends Component {
 
 BudgetPeriod.propTypes = {
   params: PropTypes.object,
-  stores: PropTypes.shape({
-    periodStore: PropTypes.instanceOf(PeriodStore),
-    categoryStore: PropTypes.instanceOf(CategoryStore)
-  })
+  stores: PropTypes.shape(StoresPropTypesShape)
 }
 
 export default BudgetPeriod

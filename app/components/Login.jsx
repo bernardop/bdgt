@@ -13,8 +13,7 @@ import _ from 'lodash'
 import { login } from '../firebase/auth'
 import checkAuth from './checkAuth'
 import { UserAuthStatus } from '../utils/constants'
-import PeriodStore from '../stores/PeriodStore'
-import CategoryStore from '../stores/CategoryStore'
+import { StoresPropTypesShape } from '../utils/constants'
 
 @inject('stores')
 @observer
@@ -88,10 +87,7 @@ class Login extends Component {
 
 Login.propTypes = {
   router: PropTypes.object,
-  stores: PropTypes.shape({
-    periodStore: PropTypes.instanceOf(PeriodStore),
-    categoryStore: PropTypes.instanceOf(CategoryStore)
-  })
+  stores: PropTypes.shape(StoresPropTypesShape)
 }
 
 export default withRouter(checkAuth(Login, UserAuthStatus.IS_AUTHENTICATED))

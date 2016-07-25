@@ -1,20 +1,18 @@
 import React, { Component, PropTypes } from 'react'
 import { withRouter } from 'react-router'
-
 import { Grid, Col, Row } from 'react-flexbox-grid/lib/index'
 import RaisedButton from 'material-ui/RaisedButton'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
 import Snackbar from 'material-ui/Snackbar'
 import LinearProgress from 'material-ui/LinearProgress'
-import NavigationClose from 'material-ui/svg-icons/navigation/close'
 import InfiniteCalendar from 'react-infinite-calendar'
 import { observable, action, computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import moment from 'moment'
-import PeriodStore from '../stores/PeriodStore'
-import CategoryStore from '../stores/CategoryStore'
+
+import { StoresPropTypesShape } from '../utils/constants'
 import checkAuth from './checkAuth'
 import { UserAuthStatus } from '../utils/constants'
+import BdgtCloseButton from './BdgtCloseButton'
 
 import 'react-infinite-calendar/styles.css'
 
@@ -101,13 +99,7 @@ class AddPeriod extends Component {
         <LinearProgress mode='indeterminate' style={progressBarVisibility} />
         <div className='add-period-container'>
           <Grid>
-            <Row end='xs'>
-              <Col xsOffset={1} xs={10}>
-                <FloatingActionButton onClick={this.handleCloseButtonClick}>
-                  <NavigationClose />
-                </FloatingActionButton>
-              </Col>
-            </Row>
+            <BdgtCloseButton position='end' handleClick={this.handleCloseButtonClick} />
             <Row start='xs'>
               <Col xsOffset={1} xs={10}>
                 <h2>Create a new period</h2>
@@ -149,10 +141,7 @@ class AddPeriod extends Component {
 }
 
 AddPeriod.propTypes = {
-  stores: PropTypes.shape({
-    periodStore: PropTypes.instanceOf(PeriodStore),
-    categoryStore: PropTypes.instanceOf(CategoryStore)
-  }),
+  stores: PropTypes.shape(StoresPropTypesShape),
   router: PropTypes.object
 }
 

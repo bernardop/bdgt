@@ -9,8 +9,7 @@ import { inject, observer } from 'mobx-react'
 
 import Header from './Header'
 import Sidebar from './Sidebar'
-import PeriodStore from '../stores/PeriodStore'
-import CategoryStore from '../stores/CategoryStore'
+import { StoresPropTypesShape } from '../utils/constants'
 import checkAuth from './checkAuth'
 import { logout } from '../firebase/auth'
 import { UserAuthStatus } from '../utils/constants'
@@ -64,10 +63,7 @@ class Main extends Component {
 Main.propTypes = {
   children: PropTypes.node,
   history: PropTypes.object,
-  stores: PropTypes.shape({
-    periodStore: PropTypes.instanceOf(PeriodStore),
-    categoryStore: PropTypes.instanceOf(CategoryStore)
-  }),
+  stores: PropTypes.shape(StoresPropTypesShape),
   router: PropTypes.object
 }
 
