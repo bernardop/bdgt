@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { withRouter } from 'react-router'
 import { Grid, Col, Row } from 'react-flexbox-grid'
-import Textfield from 'material-ui/Textfield'
+import TextField from 'material-ui/TextField'
 import { Card, CardText, CardTitle } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 import LinearProgress from 'material-ui/LinearProgress'
@@ -59,16 +59,16 @@ class Login extends Component {
     return (
       <div>
         <LinearProgress mode='indeterminate' style={progressBarVisibility} />
-        <Grid className='login-container'>
+        <Grid>
           <Row center='xs' middle='xs' className='login-row'>
             <Col xs={10} md={6}>
               <Card containerStyle={{padding: 30}}>
                 <CardTitle title='Login to BDGT' />
                 <CardText>
-                  <Textfield floatingLabelText='Email' floatingLabelFixed={true} name='email' value={this.email}
+                  <TextField floatingLabelText='Email' floatingLabelFixed={true} name='email' value={this.email}
                     onChange={this.handleChange} errorText={this.errors.email} errorStyle={{'text-align': 'left'}} />
                   <br />
-                  <Textfield floatingLabelText='Password' floatingLabelFixed={true} name='password' type='password'
+                  <TextField floatingLabelText='Password' floatingLabelFixed={true} name='password' type='password'
                     value={this.password} onChange={this.handleChange} errorText={this.errors.password}
                     errorStyle={{'text-align': 'left'}} />
                   <br />

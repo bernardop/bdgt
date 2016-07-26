@@ -18,7 +18,7 @@ const BdgtCloseButton = (props) => {
   }
 
   return (
-    <Row {...buttonPosition} >
+    <Row {...buttonPosition}>
       <Col xsOffset={1} xs={10}>
         <FloatingActionButton onClick={props.handleClick}>
           <NavigationClose />
