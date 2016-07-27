@@ -9,6 +9,7 @@ import muiTheme from './utils/muiConfig'
 
 import routes from './routes'
 import PeriodStore from './stores/PeriodStore'
+import CategoryStore from './stores/CategoryStore'
 
 import './styles/index.scss'
 
@@ -16,7 +17,8 @@ injectTapEventPlugin()
 mobxStrictMode(true)
 
 const stores = {
-  periodStore: new PeriodStore()
+  periodStore: new PeriodStore(),
+  categoryStore: new CategoryStore()
 }
 
 render(

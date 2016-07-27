@@ -45,6 +45,17 @@ class AddCategory extends Component {
     this.categoryFields.type = value
   }
 
+  @action('AddCategory_handleCreateCategory') handleCreateCategory = () => {
+    this.showLoadingBar = true
+    this.props.stores.categoryStore.addCategory(this.categoryFields)
+      .then(action('CategoryStore_addCategory-success', () => {
+        this.showLoadingBar = false
+        this.props.router.push('/periods')
+      })).catch(action('CategoryStore_addCategory-error', () => {
+        this.showLoadingBar = false
+      }))
+  }
+
   render () {
     const progressBarVisibility = {
       visibility: this.showLoadingBar ? 'visible' : 'hidden'
@@ -70,7 +81,7 @@ class AddCategory extends Component {
                     </SelectField>
                     <br />
                     <br />
-                    <RaisedButton label='Create' primary={true} />
+                    <RaisedButton label='Create' primary={true} onClick={this.handleCreateCategory} />
                   </CardText>
                 </Card>
               </Col>
