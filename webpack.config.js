@@ -3,6 +3,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 var webpack = require('webpack')
 var merge = require('webpack-merge')
+var DashboardPlugin = require('webpack-dashboard/plugin')
 
 var TARGET = process.env.npm_lifecycle_event
 var ROOT_PATH = path.join(__dirname)
@@ -69,7 +70,8 @@ if (TARGET === 'start' || !TARGET) {
       progress: true
     },
     plugins: [
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new DashboardPlugin()
     ]
   })
 }
