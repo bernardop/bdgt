@@ -61,7 +61,6 @@
     "react-addons-shallow-compare": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-flexbox-grid": "^0.10.2",
-    "react-infinite-calendar": "^1.1.17",
     "react-router": "^2.6.1",
     "react-tap-event-plugin": "^1.0.0",
     "uuid": "^2.0.2"

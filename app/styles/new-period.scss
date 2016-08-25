@@ -1,21 +1,9 @@
 /* New Period */
-.add-period-container {
+.new-period {
   padding-top: 15px;
 }
 
-.add-period-label {
-  width: 100%;
-  text-align: center;
-}
-
-.calendar-container {
-  display: flex;
-
-  .calendar {
-    margin: auto;
-  }
-}
-
-.btn-add-period {
-  margin-top: 20px;
+.new-period--form-container {
+  margin-top: -56px;
+  height: 95vh;
 }

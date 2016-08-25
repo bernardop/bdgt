@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { withRouter } from 'react-router'
 import { Grid, Col, Row } from 'react-flexbox-grid/lib/index'
+import { Card, CardTitle, CardText } from 'material-ui/Card'
+import DatePicker from 'material-ui/DatePicker'
 import RaisedButton from 'material-ui/RaisedButton'
 import Snackbar from 'material-ui/Snackbar'
 import LinearProgress from 'material-ui/LinearProgress'
-import InfiniteCalendar from 'react-infinite-calendar'
 import { observable, action, computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import moment from 'moment'
@@ -27,7 +28,7 @@ class AddPeriod extends Component {
     @action('AddPeriod_handleCreatePeriod') handleCreatePeriod = () => {
         this.showLoadingBar = true
         const dFormat = 'MM/DD/YYYY'
-        this.props.stores.periodStore.addPeriod(this.sDateValue.format(dFormat), this.eDateValue.format(dFormat))
+        this.props.stores.periodStore.addPeriod(moment(this.sDateValue).format(dFormat), moment(this.eDateValue).format(dFormat))
         .then(action('PeriodStore_addPeriod-success', () => {
             this.sDateValue = false
             this.eDateValue = false
@@ -43,40 +44,29 @@ class AddPeriod extends Component {
         this.props.router.push('/periods')
     }
 
-    @computed get eDateDisabledDays () {
-        return (this.sDateValue) ? [] : [0, 1, 2, 3, 4, 5, 6]
-    }
-
     @computed get eDateMinDate () {
         var minDate = new Date(1980, 0, 1)
         if (this.sDateValue) {
-            minDate = new Date(this.sDateValue.toDate().valueOf())
+            minDate = new Date(this.sDateValue.valueOf())
             minDate.setDate(minDate.getDate() + 1)
         }
 
-        return Number(minDate)
+        return minDate
     }
 
     @computed get addButtonStatus () {
         return (this.sDateValue && this.eDateValue) ? false : true
     }
 
-    @computed get selectedStartDate () {
-        return (this.sDateValue) ? this.sDateValue.toDate() : false
+    @action('AddPeriod_handleSetStartDate') handleSetStartDate = (event, date) => {
+        this.sDateValue = date
     }
 
-    @computed get selectedEndDate () {
-        var result = false
-        if (this.sDateValue) {
-            result = new Date(this.sDateValue.toDate().valueOf())
-            result.setDate(result.getDate() + 1)
-        }
-
-        return result
+    @action('AddPeriod_handleSetEndDate') handleSetEndDate = (event, date) => {
+        this.eDateValue = date
     }
 
     render () {
-        const calendarSize = 375
         const progressBarVisibility = {
             visibility: this.showLoadingBar ? 'visible' : 'hidden'
         }
@@ -84,38 +74,23 @@ class AddPeriod extends Component {
         return (
             <div>
                 <LinearProgress mode='indeterminate' style={progressBarVisibility} />
-                <div className='add-period-container'>
+                <div className='new-period'>
                     <Grid>
                         <BdgtCloseButton position='end' handleClick={this.handleCloseButtonClick} />
-                        <Row start='xs'>
-                            <Col xsOffset={1} xs={10}>
-                                <h2>Create a new period</h2>
-                            </Col>
-                        </Row>
-                        <Row around='xs' center='xs'>
-                            <Col xs={12} md={6}>
-                                <h3 className='add-period-label'>Start date</h3>
-                                <div className='calendar-container'>
-                                    <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedStartDate}
-                                        onSelect={action((date) => this.sDateValue = date)} className='calendar'
-                                        afterSelect={action(() => this.eDateValue = moment(this.eDateMinDate))}
-                                        showHeader={false} />
-                                </div>
-                            </Col>
-                            <Col xs={12} md={6}>
-                                <h3 className='add-period-label'>End date</h3>
-                                <div className="calendar-container">
-                                    <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedEndDate}
-                                        onSelect={action((date) => this.eDateValue = date)} className='calendar'
-                                        disabledDays={this.eDateDisabledDays} minDate={this.eDateMinDate}
-                                        showHeader={false} />
-                                </div>
-                            </Col>
-                        </Row>
-                        <Row center='xs'>
-                            <Col xs={12}>
-                                <RaisedButton label='Create' primary={true} disabled={this.addButtonStatus} className='btn-add-period'
-                                    onClick={this.handleCreatePeriod} />
+                        <Row center='xs' middle='xs' className='new-period--form-container'>
+                            <Col xs={10} md={6}>
+                                <Card containerStyle={{padding: 30}}>
+                                    <CardTitle title='New Period' />
+                                    <CardText>
+                                        <DatePicker floatingLabelFixed={true} floatingLabelText="Start Date" autoOk={true}
+                                            onChange={this.handleSetStartDate} />
+                                        <DatePicker floatingLabelFixed={true} floatingLabelText="End Date" autoOk={true} minDate={this.eDateMinDate}
+                                            onChange={this.handleSetEndDate} />
+                                        <br />
+                                        <br />
+                                        <RaisedButton label='Create' primary={true} disabled={this.addButtonStatus} onClick={this.handleCreatePeriod} />
+                                    </CardText>
+                                </Card>
                             </Col>
                         </Row>
                     </Grid>
