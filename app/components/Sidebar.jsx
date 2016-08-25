@@ -18,74 +18,70 @@ import { compareDesc } from '../utils/periodUtils'
 @inject('stores')
 @observer
 class Sidebar extends Component {
-  constructor (props) {
-    super(props)
-  }
-
-  handleNewPeriodClick = () => {
-    this.props.router.push('/periods/new')
-  }
-
-  handlePeriodClick = ({id}) => {
-    this.props.hideSidebar()
-    const path = `/periods/${id}`
-    this.props.router.push(path)
-  }
-
-  renderPeriodsList = () => {
-    const { periodStore } = this.props.stores
-    if (Object.keys(periodStore.periodsByYear).length > 0) {
-      return (
-        <div>
-          <Divider />
-          <Subheader>Periods</Subheader>
-          <List>
-            {Object.keys(periodStore.periodsByYear).sort(compareDesc).map((year, index) => {
-              return (
-                <ListItem key={year} primaryText={year} primaryTogglesNestedList={true}
-                  nestedItems={this.renderNestedPeriods(periodStore.periodsByYear[year])}
-                  initiallyOpen={index === 0} leftIcon={<DateRange />} />
-              )
-            })}
-          </List>
-        </div>
-      )
-    } else {
-      return (
-        <div className='sidebar-no-periods-message'>Click on <strong>NEW PERIOD</strong> to create your first period</div>
-      )
+    handleNewPeriodClick = () => {
+        this.props.router.push('/periods/new')
     }
-  }
 
-  renderNestedPeriods = (periods) => {
-    return periods.map((period) => {
-      return <ListItem key={period.id} primaryText={period.displayName}
-        onClick={() => this.handlePeriodClick(period)}
-        leftIcon={<Today />} />
-    })
-  }
+    handlePeriodClick = ({id}) => {
+        this.props.hideSidebar()
+        const path = `/periods/${id}`
+        this.props.router.push(path)
+    }
 
-  render () {
-    return (
-      <div>
-        <Grid fluid>
-          <Row center='xs'>
-            <Col>
-              <RaisedButton label='New Period' primary={true} icon={<ContentAdd />}
-                onClick={this.handleNewPeriodClick} className='sidebar-new-period-btn'/>
-            </Col>
-          </Row>
-        </Grid>
-        {this.renderPeriodsList()}
-      </div>
-    )
-  }
+    renderPeriodsList = () => {
+        const { periodStore } = this.props.stores
+        if (Object.keys(periodStore.periodsByYear).length > 0) {
+            return (
+                <div>
+                    <Divider />
+                    <Subheader>Periods</Subheader>
+                    <List>
+                        {Object.keys(periodStore.periodsByYear).sort(compareDesc).map((year, index) => {
+                            return (
+                                <ListItem key={year} primaryText={year} primaryTogglesNestedList={true}
+                                    nestedItems={this.renderNestedPeriods(periodStore.periodsByYear[year])}
+                                    initiallyOpen={index === 0} leftIcon={<DateRange />} />
+                            )
+                        })}
+                    </List>
+                </div>
+            )
+        } else {
+            return (
+                <div className='sidebar-no-periods-message'>Click on <strong>NEW PERIOD</strong> to create your first period</div>
+            )
+        }
+    }
+
+    renderNestedPeriods = (periods) => {
+        return periods.map((period) => {
+            return <ListItem key={period.id} primaryText={period.displayName}
+                onClick={() => this.handlePeriodClick(period)}
+                leftIcon={<Today />} />
+        })
+    }
+
+    render () {
+        return (
+            <div>
+                <Grid fluid>
+                    <Row center='xs'>
+                        <Col>
+                            <RaisedButton label='New Period' primary={true} icon={<ContentAdd />}
+                                onClick={this.handleNewPeriodClick} className='sidebar-new-period-btn'/>
+                        </Col>
+                    </Row>
+                </Grid>
+                {this.renderPeriodsList()}
+            </div>
+        )
+    }
 }
 
-Sidebar.propTypes = {
-  stores: PropTypes.shape(StoresPropTypesShape),
-  router: PropTypes.object,
-  hideSidebar: PropTypes.func
+Sidebar.wrappedComponent.propTypes = {
+    stores: PropTypes.shape(StoresPropTypesShape),
+    router: PropTypes.object,
+    hideSidebar: PropTypes.func
 }
 
 export default withRouter(Sidebar)

@@ -4,9 +4,9 @@ import PeriodStore from '../stores/PeriodStore'
 import CategoryStore from '../stores/CategoryStore'
 
 export const DateFormats = {
-  SLASH: 'MM/DD/YYYY',
-  DASH: 'MM-DD-YYYY',
-  PERIOD: 'MM.DD.YYYY'
+    SLASH: 'MM/DD/YYYY',
+    DASH: 'MM-DD-YYYY',
+    PERIOD: 'MM.DD.YYYY'
 }
 
 class UserAuthStatus extends Enum {}
@@ -16,8 +16,8 @@ class CategoryType extends Enum {}
 CategoryType.initEnum(['EXPENSE', 'INCOME'])
 
 const StoresPropTypesShape = {
-  periodStore: PropTypes.instanceOf(PeriodStore),
-  categoryStore: PropTypes.instanceOf(CategoryStore)
+    periodStore: PropTypes.instanceOf(PeriodStore),
+    categoryStore: PropTypes.instanceOf(CategoryStore)
 }
 
 export { UserAuthStatus, CategoryType, StoresPropTypesShape }

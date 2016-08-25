@@ -19,83 +19,79 @@ import { CategoryType } from '../utils/constants'
 @inject('stores')
 @observer
 class AddCategory extends Component {
-  @observable showLoadingBar = false
-  @observable categoryFields = {
-    name: '',
-    type: ''
-  }
-  @observable errors = {
-    name: null,
-    type: null
-  }
-
-  constructor (props) {
-    super(props)
-  }
-
-  handleCloseButtonClick = () => {
-    this.props.router.push('/periods')
-  }
-
-  @action('AddCategory_handleChange') handleChange = (event) => {
-    this.categoryFields[event.target.name] = event.target.value
-  }
-
-  @action('AddCategory_handleTypeChange') handleTypeChange = (event, index, value) => {
-    this.categoryFields.type = value
-  }
-
-  @action('AddCategory_handleCreateCategory') handleCreateCategory = () => {
-    this.showLoadingBar = true
-    this.props.stores.categoryStore.addCategory(this.categoryFields)
-      .then(action('CategoryStore_addCategory-success', () => {
-        this.showLoadingBar = false
-        this.props.router.push('/periods')
-      })).catch(action('CategoryStore_addCategory-error', () => {
-        this.showLoadingBar = false
-      }))
-  }
-
-  render () {
-    const progressBarVisibility = {
-      visibility: this.showLoadingBar ? 'visible' : 'hidden'
+    @observable showLoadingBar = false
+    @observable categoryFields = {
+        name: '',
+        type: ''
+    }
+    @observable errors = {
+        name: null,
+        type: null
     }
 
-    return (
-      <div>
-        <LinearProgress mode='indeterminate' style={progressBarVisibility} />
-        <div className='new-category'>
-          <Grid>
-            <BdgtCloseButton position='end' handleClick={this.handleCloseButtonClick} />
-            <Row center='xs' middle='xs' className='new-category--form-container'>
-              <Col xs={10} md={6}>
-                <Card containerStyle={{padding: 30}}>
-                  <CardTitle title='New Category' />
-                  <CardText>
-                    <TextField floatingLabelText='Name' floatingLabelFixed={true} name='name' value={this.name}
-                      onChange={this.handleChange} errorText={this.errors.name} errorStyle={{textAlign: 'left'}} />
-                    <SelectField value={this.categoryFields.type} floatingLabelText="Type" floatingLabelFixed={true}
-                      floatingLabelStyle={{left: 0}} onChange={this.handleTypeChange} menuStyle={{textAlign: 'left'}}>
-                      <MenuItem key={1} value={CategoryType.EXPENSE.name} primaryText="Expense" />
-                      <MenuItem key={2} value={CategoryType.INCOME.name} primaryText="Income" />
-                    </SelectField>
-                    <br />
-                    <br />
-                    <RaisedButton label='Create' primary={true} onClick={this.handleCreateCategory} />
-                  </CardText>
-                </Card>
-              </Col>
-            </Row>
-          </Grid>
-        </div>
-      </div>
-    )
-  }
+    handleCloseButtonClick = () => {
+        this.props.router.push('/periods')
+    }
+
+    @action('AddCategory_handleChange') handleChange = (event) => {
+        this.categoryFields[event.target.name] = event.target.value
+    }
+
+    @action('AddCategory_handleTypeChange') handleTypeChange = (event, index, value) => {
+        this.categoryFields.type = value
+    }
+
+    @action('AddCategory_handleCreateCategory') handleCreateCategory = () => {
+        this.showLoadingBar = true
+        this.props.stores.categoryStore.addCategory(this.categoryFields)
+        .then(action('CategoryStore_addCategory-success', () => {
+            this.showLoadingBar = false
+            this.props.router.push('/periods')
+        })).catch(action('CategoryStore_addCategory-error', () => {
+            this.showLoadingBar = false
+        }))
+    }
+
+    render () {
+        const progressBarVisibility = {
+            visibility: this.showLoadingBar ? 'visible' : 'hidden'
+        }
+
+        return (
+            <div>
+                <LinearProgress mode='indeterminate' style={progressBarVisibility} />
+                <div className='new-category'>
+                    <Grid>
+                        <BdgtCloseButton position='end' handleClick={this.handleCloseButtonClick} />
+                        <Row center='xs' middle='xs' className='new-category--form-container'>
+                            <Col xs={10} md={6}>
+                                <Card containerStyle={{padding: 30}}>
+                                    <CardTitle title='New Category' />
+                                    <CardText>
+                                        <TextField floatingLabelText='Name' floatingLabelFixed={true} name='name' value={this.name}
+                                            onChange={this.handleChange} errorText={this.errors.name} errorStyle={{textAlign: 'left'}} />
+                                        <SelectField value={this.categoryFields.type} floatingLabelText="Type" floatingLabelFixed={true}
+                                            floatingLabelStyle={{left: 0}} onChange={this.handleTypeChange} menuStyle={{textAlign: 'left'}}>
+                                            <MenuItem key={1} value={CategoryType.EXPENSE.name} primaryText="Expense" />
+                                            <MenuItem key={2} value={CategoryType.INCOME.name} primaryText="Income" />
+                                        </SelectField>
+                                        <br />
+                                        <br />
+                                        <RaisedButton label='Create' primary={true} onClick={this.handleCreateCategory} />
+                                    </CardText>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </Grid>
+                </div>
+            </div>
+        )
+    }
 }
 
-AddCategory.propTypes = {
-  stores: PropTypes.shape(StoresPropTypesShape),
-  router: PropTypes.object
+AddCategory.wrappedComponent.propTypes = {
+    stores: PropTypes.shape(StoresPropTypesShape),
+    router: PropTypes.object
 }
 
 export default withRouter(checkAuth(AddCategory, UserAuthStatus.SHOULD_BE_AUTHENTICATED))

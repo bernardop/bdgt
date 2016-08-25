@@ -12,66 +12,66 @@ var APP_PATH = path.join(ROOT_PATH, 'app')
 process.env.BABEL_ENV = TARGET
 
 var common = {
-  entry: APP_PATH,
-  output: {
-    publicPath: '/',
-    filename: 'bundle.js',
-    path: path.join(ROOT_PATH, 'build')
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
-  },
-  module: {
-    loaders: [
-      {
-        test: /\.css$/,
-        loaders: ['style', 'css'],
-        include: [
-          APP_PATH,
-          path.join(ROOT_PATH, 'node_modules/react-infinite-calendar')
+    entry: APP_PATH,
+    output: {
+        publicPath: '/',
+        filename: 'bundle.js',
+        path: path.join(ROOT_PATH, 'build')
+    },
+    resolve: {
+        extensions: ['', '.js', '.jsx']
+    },
+    module: {
+        loaders: [
+            {
+                test: /\.css$/,
+                loaders: ['style', 'css'],
+                include: [
+                    APP_PATH,
+                    path.join(ROOT_PATH, 'node_modules/react-infinite-calendar')
+                ]
+            },
+            {
+                test: /\.css$/,
+                loaders: ['style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'],
+                include: [
+                    /flexboxgrid/
+                ]
+            },
+            {
+                test: /\.scss$/,
+                loaders: ['style', 'css', 'sass'],
+                include: [ APP_PATH ]
+            },
+            {
+                test: /\.jsx?$/,
+                loaders: ['babel'],
+                include: APP_PATH
+            }
         ]
-      },
-      {
-        test: /\.css$/,
-        loaders: ['style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'],
-        include: [
-          /flexboxgrid/
-        ]
-      },
-      {
-        test: /\.scss$/,
-        loaders: ['style', 'css', 'sass'],
-        include: [ APP_PATH ]
-      },
-      {
-        test: /\.jsx?$/,
-        loaders: ['babel'],
-        include: APP_PATH
-      }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'Bdgt',
+            template: 'app/index.html',
+            inject: 'body'
+        }),
+        new LodashModuleReplacementPlugin
     ]
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Bdgt',
-      template: 'app/index.html',
-      inject: 'body'
-    }),
-    new LodashModuleReplacementPlugin
-  ]
 }
 
 if (TARGET === 'start' || !TARGET) {
-  module.exports = merge(common, {
-    devtool: 'eval-source-map',
-    devServer: {
-      historyApiFallback: true,
-      hot: true,
-      inline: true,
-      progress: true
-    },
-    plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-      new DashboardPlugin()
-    ]
-  })
+    module.exports = merge(common, {
+        devtool: 'eval-source-map',
+        devServer: {
+            historyApiFallback: true,
+            hot: true,
+            inline: true,
+            progress: true
+        },
+        plugins: [
+            new webpack.HotModuleReplacementPlugin(),
+            new DashboardPlugin()
+        ]
+    })
 }

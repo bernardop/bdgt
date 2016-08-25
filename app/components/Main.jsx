@@ -17,54 +17,44 @@ import { UserAuthStatus } from '../utils/constants'
 @inject('stores')
 @observer
 class Main extends Component {
-  @observable drawerOpen
+    @observable drawerOpen = false
 
-  constructor (props) {
-    super(props)
+    @action('Main_toggleDrawer') toggleDrawer = () => {
+        this.drawerOpen = !this.drawerOpen
+    }
 
-    this.setInitialValues()
-  }
+    handleLogout = () => {
+        logout().then(() => {
+            this.props.router.push('/')
+        })
+    }
 
-  @action('Main_setInitialValues') setInitialValues = () => {
-    this.drawerOpen = false
-  }
+    render () {
+        const { history } = this.props
 
-  @action('Main_toggleDrawer') toggleDrawer = () => {
-    this.drawerOpen = !this.drawerOpen
-  }
-
-  handleLogout = () => {
-    logout().then(() => {
-      this.props.router.push('/')
-    })
-  }
-
-  render () {
-    const { history } = this.props
-
-    return (
-      <div>
-        <Drawer open={this.drawerOpen} docked={false} width={275} onRequestChange={action((open) => this.drawerOpen = open)}>
-          <Sidebar history={history} hideSidebar={this.toggleDrawer} />
-        </Drawer>
-        <Header showSidebar={this.toggleDrawer} logoutUser={this.handleLogout} />
-        <Grid fluid>
-          <Row>
-            <Col xs={12}>
-              {this.props.children}
-            </Col>
-          </Row>
-        </Grid>
-      </div>
-    )
-  }
+        return (
+            <div>
+                <Drawer open={this.drawerOpen} docked={false} width={275} onRequestChange={action("onRequestChange", (open) => this.drawerOpen = open)}>
+                    <Sidebar history={history} hideSidebar={this.toggleDrawer} />
+                </Drawer>
+                <Header showSidebar={this.toggleDrawer} logoutUser={this.handleLogout} />
+                <Grid fluid>
+                    <Row>
+                        <Col xs={12}>
+                            {this.props.children}
+                        </Col>
+                    </Row>
+                </Grid>
+            </div>
+        )
+    }
 }
 
-Main.propTypes = {
-  children: PropTypes.node,
-  history: PropTypes.object,
-  stores: PropTypes.shape(StoresPropTypesShape),
-  router: PropTypes.object
+Main.wrappedComponent.propTypes = {
+    children: PropTypes.node,
+    history: PropTypes.object,
+    stores: PropTypes.shape(StoresPropTypesShape),
+    router: PropTypes.object
 }
 
 export default withRouter(checkAuth(Main, UserAuthStatus.SHOULD_BE_AUTHENTICATED))

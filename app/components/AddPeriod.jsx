@@ -19,130 +19,117 @@ import 'react-infinite-calendar/styles.css'
 @inject('stores')
 @observer
 class AddPeriod extends Component {
-  @observable sDateValue
-  @observable eDateValue
-  @observable showNewPeriodError
-  @observable showLoadingBar
+    @observable sDateValue = false
+    @observable eDateValue = false
+    @observable showNewPeriodError = false
+    @observable showLoadingBar = false
 
-  constructor (props) {
-    super(props)
+    @action('AddPeriod_handleCreatePeriod') handleCreatePeriod = () => {
+        this.showLoadingBar = true
+        const dFormat = 'MM/DD/YYYY'
+        this.props.stores.periodStore.addPeriod(this.sDateValue.format(dFormat), this.eDateValue.format(dFormat))
+        .then(action('PeriodStore_addPeriod-success', () => {
+            this.sDateValue = false
+            this.eDateValue = false
+            this.showLoadingBar = false
+            this.props.router.push('/periods')
+        })).catch(action('PeriodStore_addPeriod-error', () => {
+            this.showLoadingBar = false
+            this.showNewPeriodError = true
+        }))
+    }
 
-    this.setInitialValues(false, false)
-  }
-
-  @action('AddPeriod_setInitialValues') setInitialValues = (sDateValue, eDateValue) => {
-    this.sDateValue = sDateValue
-    this.eDateValue = eDateValue
-    this.showNewPeriodError = false
-    this.showLoadingBar = false
-  }
-
-  @action('AddPeriod_handleCreatePeriod') handleCreatePeriod = () => {
-    this.showLoadingBar = true
-    const dFormat = 'MM/DD/YYYY'
-    this.props.stores.periodStore.addPeriod(this.sDateValue.format(dFormat), this.eDateValue.format(dFormat))
-      .then(action('PeriodStore_addPeriod-success', () => {
-        this.sDateValue = false
-        this.eDateValue = false
-        this.showLoadingBar = false
+    handleCloseButtonClick = () => {
         this.props.router.push('/periods')
-      })).catch(action('PeriodStore_addPeriod-error', () => {
-        this.showLoadingBar = false
-        this.showNewPeriodError = true
-      }))
-  }
-
-  handleCloseButtonClick = () => {
-    this.props.router.push('/periods')
-  }
-
-  @computed get eDateDisabledDays () {
-    return (this.sDateValue) ? [] : [0, 1, 2, 3, 4, 5, 6]
-  }
-
-  @computed get eDateMinDate () {
-    var minDate = new Date(1980, 0, 1)
-    if (this.sDateValue) {
-      minDate = new Date(this.sDateValue.toDate().valueOf())
-      minDate.setDate(minDate.getDate() + 1)
     }
 
-    return Number(minDate)
-  }
-
-  @computed get addButtonStatus () {
-    return (this.sDateValue && this.eDateValue) ? false : true
-  }
-
-  @computed get selectedStartDate () {
-    return (this.sDateValue) ? this.sDateValue.toDate() : false
-  }
-
-  @computed get selectedEndDate () {
-    var result = false
-    if (this.sDateValue) {
-      result = new Date(this.sDateValue.toDate().valueOf())
-      result.setDate(result.getDate() + 1)
+    @computed get eDateDisabledDays () {
+        return (this.sDateValue) ? [] : [0, 1, 2, 3, 4, 5, 6]
     }
 
-    return result
-  }
+    @computed get eDateMinDate () {
+        var minDate = new Date(1980, 0, 1)
+        if (this.sDateValue) {
+            minDate = new Date(this.sDateValue.toDate().valueOf())
+            minDate.setDate(minDate.getDate() + 1)
+        }
 
-  render () {
-    const calendarSize = 375
-    const progressBarVisibility = {
-      visibility: this.showLoadingBar ? 'visible' : 'hidden'
+        return Number(minDate)
     }
 
-    return (
-      <div>
-        <LinearProgress mode='indeterminate' style={progressBarVisibility} />
-        <div className='add-period-container'>
-          <Grid>
-            <BdgtCloseButton position='end' handleClick={this.handleCloseButtonClick} />
-            <Row start='xs'>
-              <Col xsOffset={1} xs={10}>
-                <h2>Create a new period</h2>
-              </Col>
-            </Row>
-            <Row around='xs' center='xs'>
-              <Col xs={12} md={6}>
-                <h3 className='add-period-label'>Start date</h3>
-                <div className='calendar-container'>
-                  <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedStartDate}
-                    onSelect={action((date) => this.sDateValue = date)} className='calendar'
-                    afterSelect={action(() => this.eDateValue = moment(this.eDateMinDate))}
-                    showHeader={false} />
+    @computed get addButtonStatus () {
+        return (this.sDateValue && this.eDateValue) ? false : true
+    }
+
+    @computed get selectedStartDate () {
+        return (this.sDateValue) ? this.sDateValue.toDate() : false
+    }
+
+    @computed get selectedEndDate () {
+        var result = false
+        if (this.sDateValue) {
+            result = new Date(this.sDateValue.toDate().valueOf())
+            result.setDate(result.getDate() + 1)
+        }
+
+        return result
+    }
+
+    render () {
+        const calendarSize = 375
+        const progressBarVisibility = {
+            visibility: this.showLoadingBar ? 'visible' : 'hidden'
+        }
+
+        return (
+            <div>
+                <LinearProgress mode='indeterminate' style={progressBarVisibility} />
+                <div className='add-period-container'>
+                    <Grid>
+                        <BdgtCloseButton position='end' handleClick={this.handleCloseButtonClick} />
+                        <Row start='xs'>
+                            <Col xsOffset={1} xs={10}>
+                                <h2>Create a new period</h2>
+                            </Col>
+                        </Row>
+                        <Row around='xs' center='xs'>
+                            <Col xs={12} md={6}>
+                                <h3 className='add-period-label'>Start date</h3>
+                                <div className='calendar-container'>
+                                    <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedStartDate}
+                                        onSelect={action((date) => this.sDateValue = date)} className='calendar'
+                                        afterSelect={action(() => this.eDateValue = moment(this.eDateMinDate))}
+                                        showHeader={false} />
+                                </div>
+                            </Col>
+                            <Col xs={12} md={6}>
+                                <h3 className='add-period-label'>End date</h3>
+                                <div className="calendar-container">
+                                    <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedEndDate}
+                                        onSelect={action((date) => this.eDateValue = date)} className='calendar'
+                                        disabledDays={this.eDateDisabledDays} minDate={this.eDateMinDate}
+                                        showHeader={false} />
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row center='xs'>
+                            <Col xs={12}>
+                                <RaisedButton label='Create' primary={true} disabled={this.addButtonStatus} className='btn-add-period'
+                                    onClick={this.handleCreatePeriod} />
+                            </Col>
+                        </Row>
+                    </Grid>
+                    <Snackbar open={this.showNewPeriodError} message='Error adding period' autoHideDuration={3000}
+                        onRequestClose={action(() => this.showNewPeriodError = false)} />
                 </div>
-              </Col>
-              <Col xs={12} md={6}>
-                <h3 className='add-period-label'>End date</h3>
-                <div className="calendar-container">
-                  <InfiniteCalendar width={calendarSize} height={calendarSize} selectedDate={this.selectedEndDate}
-                    onSelect={action((date) => this.eDateValue = date)} className='calendar'
-                    disabledDays={this.eDateDisabledDays} minDate={this.eDateMinDate}
-                    showHeader={false} />
-                </div>
-              </Col>
-            </Row>
-            <Row center='xs'>
-              <Col xs={12}>
-                <RaisedButton label='Create' primary={true} disabled={this.addButtonStatus} className='btn-add-period'
-                  onClick={this.handleCreatePeriod} />
-              </Col>
-            </Row>
-          </Grid>
-          <Snackbar open={this.showNewPeriodError} message='Error adding period' autoHideDuration={3000}
-            onRequestClose={action(() => this.showNewPeriodError = false)} />
-        </div>
-      </div>
-    )
-  }
+            </div>
+        )
+    }
 }
 
-AddPeriod.propTypes = {
-  stores: PropTypes.shape(StoresPropTypesShape),
-  router: PropTypes.object
+AddPeriod.wrappedComponent.propTypes = {
+    stores: PropTypes.shape(StoresPropTypesShape),
+    router: PropTypes.object
 }
 
 export default withRouter(checkAuth(AddPeriod, UserAuthStatus.SHOULD_BE_AUTHENTICATED))

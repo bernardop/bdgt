@@ -17,15 +17,15 @@ injectTapEventPlugin()
 mobxStrictMode(true)
 
 const stores = {
-  periodStore: new PeriodStore(),
-  categoryStore: new CategoryStore()
+    periodStore: new PeriodStore(),
+    categoryStore: new CategoryStore()
 }
 
 render(
-  <MuiThemeProvider muiTheme={muiTheme}>
-    <Provider stores={stores}>
-      <Router routes={routes} history={browserHistory} />
-    </Provider>
-  </MuiThemeProvider>,
-  document.getElementById('app')
+    <MuiThemeProvider muiTheme={muiTheme}>
+        <Provider stores={stores}>
+            <Router routes={routes} history={browserHistory} />
+        </Provider>
+    </MuiThemeProvider>,
+    document.getElementById('app')
 )

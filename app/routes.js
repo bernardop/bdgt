@@ -9,13 +9,13 @@ import Login from './components/Login'
 import AddCategory from './components/AddCategory'
 
 export default (
-  <Route path='/' component={App}>
-    <IndexRoute component={Login} />
-    <Route path='/periods/new' component={AddPeriod} />
-    <Route path='/periods' component={Main}>
-      <IndexRoute component={BudgetPeriod} />
-      <Route path='/periods/:periodId' component={BudgetPeriod} />
+    <Route path='/' component={App}>
+        <IndexRoute component={Login} />
+        <Route path='/periods/new' component={AddPeriod} />
+        <Route path='/periods' component={Main}>
+            <IndexRoute component={BudgetPeriod} />
+            <Route path='/periods/:periodId' component={BudgetPeriod} />
+        </Route>
+        <Route path='/categories/new' component={AddCategory} />
     </Route>
-    <Route path='/categories/new' component={AddCategory} />
-  </Route>
 )

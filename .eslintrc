@@ -1,22 +1,22 @@
 {
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "plugins": [
+        "flow-vars",
+        "react"
+    ],
+    "extends": [ "eslint:recommended", "plugin:react/recommended"],
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+    },
+    "rules": {
+        "flow-vars/define-flow-type": 1,
+        "flow-vars/use-flow-type": 1
     }
-  },
-  "plugins": [
-    "flow-vars",
-    "react"
-  ],
-  "extends": [ "eslint:recommended", "plugin:react/recommended"],
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true
-  },
-  "rules": {
-    "flow-vars/define-flow-type": 1,
-    "flow-vars/use-flow-type": 1
-  }
 }
