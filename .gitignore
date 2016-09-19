@@ -6,4 +6,4 @@ tsd.json
 typings/*
 .tags*
 app/firebase/config.js
-*.orig
+.orig
