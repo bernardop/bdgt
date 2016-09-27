@@ -4,9 +4,9 @@ import { inject, observer } from 'mobx-react'
 import { Grid, Row, Col } from 'react-flexbox-grid'
 import RaisedButton from 'material-ui/RaisedButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
-import NavigationClose from 'material-ui/svg-icons/navigation/close'
 
 import { StoresPropTypesShape } from '../utils/constants'
+import AddBudgetItem from './AddBudgetItem'
 
 @inject('stores')
 @observer
@@ -28,9 +28,10 @@ class BudgetPeriod extends Component {
                 <Grid fluid>
                     <Row>
                         <Col>
-                            <RaisedButton label={this.newItemFormVisible ? 'Close' : 'New Item'} primary={true} icon={this.newItemFormVisible ? <NavigationClose /> : <ContentAdd />}
-                                onClick={this.toggleNewItemForm} />
-                            {this.newItemFormVisible ? <div>The form</div> : null}
+                            {this.newItemFormVisible
+                                ? <AddBudgetItem handleCloseButtonClick={this.toggleNewItemForm} />
+                                : <RaisedButton label='New Item' primary={false} icon={<ContentAdd />} onClick={this.toggleNewItemForm} />
+                            }
                         </Col>
                     </Row>
                 </Grid>
