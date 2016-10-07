@@ -27,15 +27,15 @@ class BudgetPeriod extends Component {
             <div className='periods-main'>
                 <Grid fluid>
                     <Row>
-                        <Col>
+                        <Col xs={12}>
                             {this.newItemFormVisible
                                 ? <AddBudgetItem handleCloseButtonClick={this.toggleNewItemForm} />
-                                : <RaisedButton label='New Item' primary={false} icon={<ContentAdd />} onClick={this.toggleNewItemForm} />
+                                : <RaisedButton label='New Item' secondary={true} icon={<ContentAdd />} onClick={this.toggleNewItemForm} />
                             }
                         </Col>
                     </Row>
                 </Grid>
-                {this.renderContent()}
+                {/* {this.renderContent()} */}
             </div>
         )
     }
